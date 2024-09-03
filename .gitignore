@@ -1,4 +1,26 @@
+# Django specific
+*.log
+*.pot
 *.pyc
 __pycache__/
-
 db.sqlite3
+media/
+
+# Static files
+staticfiles/
+
+# local settings
+local_settings.py
+
+# Environment variables
+.env
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# PyCharm specific
+.idea/
+
+# VSCode specific
+.vscode/
