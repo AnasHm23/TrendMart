@@ -1,3 +1,7 @@
+# virtual environment
+venv/
+dj_venv/
+
 # Django specific
 *.log
 *.pot
