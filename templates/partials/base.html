@@ -513,13 +513,13 @@
                         </li>
                         {% if request.user.is_authenticated %}
                         <li>
-                          <a href="#"
+                          <a href="{% url 'logout' %}"
                             ><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a
                           >
                         </li>
                         {% else %}
                         <li>
-                          <a href="#"
+                          <a href="{% url 'userauths:login' %}"
                             ><i class="fi fi-rs-sign-in mr-10"></i>Sign in</a
                           >
                         </li>
