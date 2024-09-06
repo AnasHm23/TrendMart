@@ -33,27 +33,30 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
+        messages.warning(request, f"Hey, you are already logged in!")
         return redirect("core:index")
     
     if request.method == "POST":
         email = request.POST.get("email")
-        password = request.POST.get("password1")
+        password = request.POST.get("password")
         
         try:
             user = User.objects.get(email=email)
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"Welcome {user.username}")
+                return redirect("core:index")
+            else:
+                messages.warning(request, "Invalid credentials")
         except:
             messages.warning(request, f"User with {email} does not exist")
         
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, f"Welcome {user.username}")
-            return redirect("core:index")
-        else:
-            messages.warning(request, "Invalid credentials")
-    return render(request, "userauths/sign-in.html", context={})
+        
+    return render(request, "userauths/sign-in.html")
+    
     
 def logout_user(request):
     messages.success(request, "You just Logged out")
     logout(request)
-    redirect("core:index")
+    return redirect("core:index")

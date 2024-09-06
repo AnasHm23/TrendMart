@@ -513,7 +513,7 @@
                         </li>
                         {% if request.user.is_authenticated %}
                         <li>
-                          <a href="{% url 'logout' %}"
+                          <a href="{% url 'userauths:logout' %}"
                             ><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a
                           >
                         </li>
@@ -1438,7 +1438,7 @@
                       alt="logo"
                   /></a>
                   <p class="font-lg text-heading">
-                    Awesome grocery store website template
+                    Awesome grocery store website
                   </p>
                 </div>
                 <ul class="contact-infor">
