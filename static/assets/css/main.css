@@ -41,6 +41,10 @@ TABLE CONTENT
 @import url(plugins/perfect-scrollbar.css);
 /*RESET*/
 
+html {
+  overflow-x: hidden;
+}
+
 html,
 body,
 div,
