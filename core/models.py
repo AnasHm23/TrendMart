@@ -56,7 +56,7 @@ class Tags(models.Model):
 
 ####################### Vendor Model setting up ########################
 class Vendor(models.Model):
-    Vendor_id = ShortUUIDField(unique=True, length=10, max_length=20, prefix="ven", alphabet="abcdefgh12345")
+    vendor_id = ShortUUIDField(unique=True, length=10, max_length=20, prefix="ven", alphabet="abcdefgh12345")
     title = models.CharField(max_length=50, default="Trendify")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="I am an Excellent vendor")
@@ -88,8 +88,8 @@ class Product(models.Model):
     product_id = ShortUUIDField(unique=True, length=10, max_length=30, alphabet="abcdefgh12345")
     
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="products")
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, related_name="products")
     
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="product")

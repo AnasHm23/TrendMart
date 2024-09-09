@@ -203,7 +203,7 @@
                   <div class="font-xs">
                     <ul>
                       <li class="mb-5">
-                        Vendor: <span class="text-brand">Nest</span>
+                        Vendor: <span class="text-brand">TrendMart</span>
                       </li>
                       <li class="mb-5">
                         MFG:<span class="text-brand"> Jun 4.2022</span>
@@ -557,7 +557,7 @@
                     <ul>
                       {% for c in categories %}
                       <li>
-                        <a href="#product-list' c.category_id %}">
+                        <a href="{% url 'core:category-products' c.category_id %}">
                           <img src="{{ c.image.url }}" alt="" />{{ c.title }}</a
                         >
                       </li>
@@ -644,15 +644,11 @@
                       <ul class="sub-menu">
                         {% for c in categories %}
                         <li>
-                          <a href="#product-list' c.category_id %}"
+                          <a href="{% url 'core:category-products' c.category_id %}"
                             >{{ c.title }}</a
                           >
                         </li>
                         {% endfor %}
-                        <hr />
-                        <li>
-                          <a href="#list' %}">All Categories</a>
-                        </li>
                       </ul>
                     </li>
                     <li>
@@ -1247,7 +1243,7 @@
               </a>
             </div>
             <div class="single-mobile-header-info">
-              <a href="page-login.html"
+              <a href="{% url 'userauths:login' %}"
                 ><i class="fi-rs-user"></i>Log In / Sign Up
               </a>
             </div>
@@ -1472,7 +1468,11 @@
             <div class="footer-link-widget col">
               <h4 class="widget-title">Account</h4>
               <ul class="footer-list mb-sm-5 mb-md-0">
-                <li><a href="#">Sign In</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'userauths:logout' %}">Sign Out</a></li>
+                {% else %}
+                  <li><a href="{% url 'userauths:login' %}">Sign In</a></li>
+                {% endif %}
                 <li><a href="#">View Cart</a></li>
                 <li><a href="#">My Wishlist</a></li>
                 <li><a href="#">Track My Order</a></li>

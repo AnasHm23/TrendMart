@@ -1,21 +1,41 @@
-from django.shortcuts import render
-from .models import Product
+from django.shortcuts import render, redirect
+from .models import Product, Category, Vendor
+from django.contrib import messages
 
-# Create your views here.
+
 def index(request):
-    # products = Product.objects.all().order_by("-id")
-    products = Product.objects.filter(price__lt=8, price__gt=3).order_by("-id")
-    
-    context = {
-        'products': products
-    }
-    return render(request, 'core/index.html', context) 
+    return render(request, 'core/index.html') 
 
 def product_list(request):
-    # products = Product.objects.all().order_by("-id")
     products = Product.objects.all().order_by("-id")
     context = {
         'products': products
     }
     return render(request, 'core/product_list.html', context) 
 
+def category_products_list(request, cid):
+    category = Category.objects.get(category_id=cid)
+    
+    if category is not None:
+        messages.success(request, f"here are all the products related to {category.title} category")
+        context = {
+            'category': category,
+        }
+        return render(request, 'core/category-products-list.html', context)
+    else:
+        messages.error(request, "the category doesn't exist")
+        return redirect("core:index")
+
+def vendor_products_list(request, vid):
+    vendor = Vendor.objects.get(Vendor_id=vid)
+    
+    if vendor is not None:
+        products = Product.objects.filter(vendor=vendor)
+        messages.success(request, "here are all the products related to the chosen vendor")
+        context = {
+            'products': products
+        }
+        return render(request, "core/vendor-products.html", context)
+    else:
+        messages.error(request, "vendor doesn't exist")
+        return redirect("core:index")
