@@ -328,7 +328,7 @@
         <div class="container">
           <div class="header-wrap">
             <div class="logo logo-width-1">
-              <a href="#"
+              <a href="{% url 'core:index' %}"
                 ><img
                   src="{% static 'assets/imgs/theme/logo.svg' %}"
                   alt="logo"
@@ -339,16 +339,9 @@
                 <form action="#" method="GET">
                   <select class="select-active">
                     <option>All Categories</option>
-                    <option>Milks and Dairies</option>
-                    <option>Wines & Alcohol</option>
-                    <option>Clothing & Beauty</option>
-                    <option>Pet Foods & Toy</option>
-                    <option>Fast food</option>
-                    <option>Baking material</option>
-                    <option>Vegetables</option>
-                    <option>Fresh Seafood</option>
-                    <option>Noodles & Rice</option>
-                    <option>Ice cream</option>
+                    {% for category in categories %}
+                      <option>{{ category.title }}</option>
+                    {% endfor %}
                   </select>
                   <input
                     type="text"
@@ -564,46 +557,6 @@
                       {% endfor %}
                     </ul>
                   </div>
-                  <div class="more_slide_open" style="display: none">
-                    <div class="d-flex categori-dropdown-inner">
-                      <ul>
-                        <li>
-                          <a href="shop-grid-right.html">
-                            <img
-                              src="{% static 'assets/imgs/theme/icons/icon-1.svg' %}"
-                              alt=""
-                            />Milks and Dairies</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-grid-right.html">
-                            <img
-                              src="{% static 'assets/imgs/theme/icons/icon-2.svg' %}"
-                              alt=""
-                            />Clothing & beauty</a
-                          >
-                        </li>
-                      </ul>
-                      <ul class="end">
-                        <li>
-                          <a href="shop-grid-right.html">
-                            <img
-                              src="{% static 'assets/imgs/theme/icons/icon-3.svg' %}"
-                              alt=""
-                            />Wines & Drinks</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-grid-right.html">
-                            <img
-                              src="{% static 'assets/imgs/theme/icons/icon-4.svg' %}"
-                              alt=""
-                            />Fresh Seafood</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
                   <div class="more_categories">
                     <span class="icon"></span>
                     <span class="heading-sm-1">Show more...</span>
@@ -620,19 +573,6 @@
                         src="{% static 'assets/imgs/theme/icons/icon-hot.svg' %}"
                         alt="hot deals"
                       /><a href="shop-grid-right.html">Deals</a>
-                    </li>
-                    <li>
-                      <a class="active" href="index.html"
-                        >Home <i class="fi-rs-angle-down"></i
-                      ></a>
-                      <ul class="sub-menu">
-                        <li><a href="index.html">Home 1</a></li>
-                        <li><a href="index-2.html">Home 2</a></li>
-                        <li><a href="index-3.html">Home 3</a></li>
-                        <li><a href="index-4.html">Home 4</a></li>
-                        <li><a href="index-5.html">Home 5</a></li>
-                        <li><a href="index-6.html">Home 6</a></li>
-                      </ul>
                     </li>
                     <li>
                       <a href="page-about.html">About</a>
@@ -657,18 +597,9 @@
                     <li>
                       <a href="#">Vendors <i class="fi-rs-angle-down"></i></a>
                       <ul class="sub-menu">
-                        <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                        <li><a href="vendors-list.html">Vendors List</a></li>
-                        <li>
-                          <a href="vendor-details-1.html">Vendor Details 01</a>
-                        </li>
-                        <li>
-                          <a href="vendor-details-2.html">Vendor Details 02</a>
-                        </li>
-                        <li>
-                          <a href="vendor-dashboard.html">Vendor Dashboard</a>
-                        </li>
-                        <li><a href="vendor-guide.html">Vendor Guide</a></li>
+                        {% for vendor in vendors %}
+                        <li><a href="{% url 'core:vendor-products' vendor.vendor_id %}">{{ vendor.title }}</a></li>
+                        {% endfor %}
                       </ul>
                     </li>
                     <li class="position-static">
@@ -847,15 +778,12 @@
                         <li><a href="page-about.html">About Us</a></li>
                         <li><a href="page-contact.html">Contact</a></li>
                         <li><a href="page-account.html">My Account</a></li>
-                        <li><a href="page-login.html">Login</a></li>
-                        <li><a href="page-register.html">Register</a></li>
+                        <li><a href="{% url 'userauths:login' %}">Login</a></li>
+                        <li><a href="{% url 'userauths:sign-up' %}">Register</a></li>
                         <li>
                           <a href="page-forgot-password.html"
-                            >Forgot password</a
+                            >Reset password</a
                           >
-                        </li>
-                        <li>
-                          <a href="page-reset-password.html">Reset password</a>
                         </li>
                         <li>
                           <a href="page-purchase-guide.html">Purchase Guide</a>
@@ -888,7 +816,7 @@
                 <span class="burger-icon-bottom"></span>
               </div>
             </div>
-            <div class="header-action-right d-block d-lg-none">
+            {% comment %} <div class="header-action-right d-block d-lg-none">
               <div class="header-action-2">
                 <div class="header-action-icon-2">
                   <a href="shop-wishlist.html">
@@ -933,7 +861,7 @@
                         <div class="shopping-cart-img">
                           <a href="shop-product-right.html"
                             ><img
-                              alt="Nest"
+                              alt="TrendMart"
                               src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}"
                           /></a>
                         </div>
@@ -962,7 +890,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> {% endcomment %}
           </div>
           {% if messages %} {% for message in messages %}
           <div class="alert alert-{{message.tags}}">

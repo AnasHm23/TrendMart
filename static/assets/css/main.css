@@ -3526,9 +3526,34 @@ table .product-thumbnail img {
   z-index: 2;
 }
 
-.zoomContainer,
+.zoomContainer {
+  position: relative;
+}
+
 .zoomWindow {
-  z-index: 9999;
+  z-index: 999;
+  overflow: hidden;
+  margin-left: 0px;
+  margin-top: 0px;
+  background-position: 0px 0px;
+  float: left;
+  display: block;
+  cursor: crosshair;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #d4d4d4;
+}
+
+.zoomWindow img {
+  position: absolute;
+  max-width: none;
+}
+
+.zoomedImg {
+  width: 100%;
+  transition: transform 0.25s ease;
 }
 
 .single-product .zoomContainer,
@@ -5950,8 +5975,15 @@ table.no-border thead {
 
 /*BLOG*/
 
-.archive-header {
+.archive-header-category {
   background: url(../imgs/blog/header-bg.png) no-repeat center center;
+  border-radius: 20px;
+  padding: 70px 80px;
+  background-size: cover;
+}
+
+.archive-header {
+  background: url(../imgs/vendor/vendor-header-bg.png) no-repeat center center;
   border-radius: 20px;
   padding: 70px 80px;
   background-size: cover;

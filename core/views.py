@@ -13,13 +13,25 @@ def product_list(request):
     }
     return render(request, 'core/product_list.html', context) 
 
+def product_detail(request, pid):
+    product = Product.objects.get(product_id=pid)
+    related_products = Product.objects.filter(category=product.category).exclude(product_id=product.product_id)
+    
+    context = {
+        'product': product,
+        'related_products': related_products,
+    }
+    return render(request, 'core/product-details.html', context)
+
 def category_products_list(request, cid):
     category = Category.objects.get(category_id=cid)
     
     if category is not None:
+        products = Product.objects.filter(category=category)
         messages.success(request, f"here are all the products related to {category.title} category")
         context = {
             'category': category,
+            'products': products,
         }
         return render(request, 'core/category-products-list.html', context)
     else:
@@ -27,13 +39,14 @@ def category_products_list(request, cid):
         return redirect("core:index")
 
 def vendor_products_list(request, vid):
-    vendor = Vendor.objects.get(Vendor_id=vid)
+    vendor = Vendor.objects.get(vendor_id=vid)
     
     if vendor is not None:
         products = Product.objects.filter(vendor=vendor)
         messages.success(request, "here are all the products related to the chosen vendor")
         context = {
-            'products': products
+            'vendor': vendor,
+            'products': products,
         }
         return render(request, "core/vendor-products.html", context)
     else:

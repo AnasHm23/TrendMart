@@ -246,10 +246,10 @@
                             {% for vendor in vendors %}
                             <li class="text-center">
                                 <a href="{% url 'core:vendor-products' vendor.vendor_id %}">
-                                    <img src="{{ vendor.image.url }}" alt="" />
-                                    <p>
+                                    <img style="border-radius: 50%;" src="{{ vendor.image.url }}" alt="" />
+                                    <h5>
                                         {{ vendor.title }}
-                                    </p>
+                                    </h5>
                                 </a><span class="count">{{ vendor.products.count }}</span>
                             </li>
                             {% endfor %}
@@ -297,36 +297,35 @@
                     </div>
             </div>
         </div>
+
+        <!--Categorie Details-->
         <section class="popular-categories section-padding">
             <div class="container">
                 <div class="section-title">
                     <div class="title">
                         <h3>Shop by Categories</h3>
-                        <a class="show-all" id="show-all" href="#show-all">
-                            Here are All Categories
-                            <i class="fi-rs-angle-right"></i>
+                        <a class="show-all" href="shop-grid-right.html">
                         </a>
                     </div>
                     <div class="slider-arrow slider-arrow-2 flex-right carausel-8-columns-arrow" id="carausel-8-columns-arrows"></div>
                 </div>
-                {% for category in categories %}
-                    <div class="carausel-8-columns-cover position-relative">
-                        <a href="{% url 'core:category-products' category.category_id %}">
-                        <div class="carausel-8-columns" id="carausel-8-columns">
-                            <div class="card-1" id="{{ category.id }}">
-                                <figure class="img-hover-scale overflow-hidden">
-                                    <img src="{{ category.image.url }}" alt="{{ category.title }}" />
-                                </figure>
-                                <h6>
-                                    {{ category.title }}
-                                </h6>
-                            </div>
+                <div class="carausel-8-columns-cover position-relative">
+                    <div class="carausel-8-columns" id="carausel-8-columns">
+                        {% for category in categories %}
+                        <div class="card-1">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="{% url 'core:category-products' category.category_id %}"><img style="height: 100px; width: 100px; border-bottom-left-radius: 50%; border-bottom-right-radius: 50%;" src="{{ category.image.url }}" alt="" /></a>
+                            </figure>
+                            <h6>
+                                <a href="{% url 'core:category-products' category.category_id %}">{{ category.title }}</a>
+                            </h6>
                         </div>
-                        </a>
+                        {% endfor %}
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </section>
+
         <!--End category slider-->
         <section class="section-padding mb-30">
             <div class="container">

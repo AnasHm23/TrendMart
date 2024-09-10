@@ -55,13 +55,16 @@ class Tags(models.Model):
 
 
 ####################### Vendor Model setting up ########################
-class Vendor(models.Model):
+class Vendor(models.Model):    
     vendor_id = ShortUUIDField(unique=True, length=10, max_length=20, prefix="ven", alphabet="abcdefgh12345")
     title = models.CharField(max_length=50, default="Trendify")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="I am an Excellent vendor")
     address = models.CharField(max_length=100, default="123 main street")
     contact = models.CharField(max_length=100, default="+123 (456) 789")
+    
+    rating = models.IntegerField(choices=RATING, default=None)
+    
     shipping_on_time = models.CharField(max_length=100, default="100")
     authentic_rating = models.CharField(max_length=100 , default="100")
     days_return = models.CharField(max_length=100, default="100")
@@ -81,6 +84,9 @@ class Vendor(models.Model):
     def __str__(self) -> str:
         return self.title
     
+    def get_rating_display(self):
+        rating_dict = dict(RATING)
+        return rating_dict.get(self.rating, '')
 
 #################### Product Model setting up #####################
 
@@ -100,6 +106,7 @@ class Product(models.Model):
     
     specifications = models.TextField(null=True, blank=True)
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    
     
     product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
     
@@ -124,10 +131,10 @@ class Product(models.Model):
 
     def get_percentage(self):
         discount = ((self.old_price - self.price) / self.old_price) * 100
-        return round(discount)
+        return f"-{round(discount)}%"
     
 class ProductImages(models.Model):
-    images = models.ImageField(upload_to="product-images", default="product.jpg")
+    product_images = models.ImageField(upload_to="product-images", default="product.jpg")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True)
     
