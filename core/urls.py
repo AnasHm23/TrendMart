@@ -13,5 +13,9 @@ urlpatterns = [
     path('category/<str:cid>', views.category_products_list, name='category-products'),
     
     # vendors
-    path('vendor/<str:vid>', views.vendor_products_list, name='vendor-products'),   
+    path('vendor/<str:vid>', views.vendor_products_list, name='vendor-products'),
+    
+    #search for a product
+    path('search/', views.search_view, name='search'),
+    path('filter/', views.filter_view, name='filter'),
 ]

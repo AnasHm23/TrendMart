@@ -3511,12 +3511,14 @@ table .product-thumbnail img {
   top: 50%;
   -webkit-transform: translateY(-50%) !important;
   transform: translateY(-50%) !important;
+  box-shadow: 10px 10px 30px rgb(59, 59, 59);
+  border-radius: 100px;
 }
 
 .custom-modal .modal-dialog .modal-content {
-  border-radius: 25px;
+  background-color: rgb(244, 243, 243);
   padding: 40px;
-  border: 1px solid #bce3c9;
+  border: 1px solid #79bad5;
 }
 
 .custom-modal .modal-dialog .btn-close {
@@ -13152,3 +13154,72 @@ footer .hotline img {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+/* filter by price */
+.form_price {
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 10px #3294a5;
+}
+
+.form_price h3 {
+  color: #3294a5;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.form_price .form-control { 
+  color: #3294a5;
+  box-shadow: 1px 1px 10px #3294a5;
+  margin: 10px 0 10px 0;
+}
+
+.form_price .btn-default {
+  background-color: #3294a5;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-style: italic;
+  font-size: larger;
+  font-weight: bold;
+  border: none;
+  box-shadow: 1px 1px 3px #3294a5;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    background: #3294a5;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    margin: 10px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #3294a5;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3294a5;
+    border: 2px solid #28a745;
+    margin-top: -6px;
+}
+
+
+input[type="range"]::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3294a5; 
+    cursor: pointer;
+    border: 2px solid #3294a5;
+} 

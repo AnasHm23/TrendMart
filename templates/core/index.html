@@ -255,9 +255,11 @@
                             {% endfor %}
                         </ul>
                     </div>
+
+
                     <!-- Fillter By Price -->
-                    <div class="sidebar-widget price_range range mb-30">
-                        <h5 class="section-title style-1 mb-30">Fill by price</h5>
+                    {% comment %} <div class="sidebar-widget price_range range mb-30">
+                        <h5 class="section-title style-1 mb-30">Filter by price</h5>
                         <div class="price-filter">
                             <div class="price-filter-inner">
                                 <div id="slider-range" class="mb-20"></div>
@@ -268,33 +270,48 @@
                             </div>
                         </div>
                         <div class="list-group">
-                            <div class="list-group-item mb-10 mt-10">
-                                <label class="fw-900">Color</label>
-                                <div class="custome-checkbox">
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
-                                    <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                    <br />
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="" />
-                                    <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                    <br />
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="" />
-                                    <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
+                            <form action="{% url 'core:filter' %}"  method="get" class="list-group-item mb-10 mt-10">
+                                <label class="fw-500">Price</label>
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="min_price" placeholder="Min">
+                                        <input type="text" class="form-control" name="max_price" placeholder="Max">
+                                    </div>
                                 </div>
-                                <label class="fw-900 mt-15">Item Condition</label>
-                                <div class="custome-checkbox">
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="" />
-                                    <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                    <br />
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="" />
-                                    <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                    <br />
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="" />
-                                    <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
+                                <br>
+                                <button class="btn btn-sm btn-default" type="submit">filter</button>
+                            </form>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <div class="list-group">
+                        <form action="{% url 'core:filter' %}" method="get" class="form_price">
+                            <h3 class="fw-500">filter by price</h3>
+                            <div class="form-group mb-0">
+                                <div class="input-group">
+                                    <!-- Slider for Min Price -->
+                                    <input type="range" id="min_price_slider" name="min_price_range" min="0" max="100" value="0" class="form-control-range" oninput="updateMinPrice(this.value)">
+                                    <!-- Slider for Max Price -->
+                                    <input type="range" id="max_price_slider" name="max_price" min="0" max="100" value="100" class="form-control-range" oninput="updateMaxPrice(this.value)">
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="min_price" class="form-control" id="min_price" value="0" placeholder="MIN">
+                                    <input type="text" name="max_price" class="form-control" id="max_price" value="100" placeholder="MAX">
                                 </div>
                             </div>
-                        </div>
-                        <a href="shop-grid-right.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
+                            <button class="btn btn-sm btn-default" type="submit">Filter</button>
+                        </form>
                     </div>
+                    <script>
+                        function updateMinPrice(value) {
+                            document.getElementById("min_price").value = value;
+                        }
+                        function updateMaxPrice(value) {
+                            document.getElementById("max_price").value = value;
+                        }
+                    </script>
+
+                    
             </div>
         </div>
 

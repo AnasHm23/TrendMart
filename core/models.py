@@ -99,14 +99,12 @@ class Product(models.Model):
     
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="product")
-    description = models.TextField(null=True, blank=True, default="this is the product")
     
     price = models.DecimalField(max_digits=9999, decimal_places=2, default ="1.99")
     old_price = models.DecimalField(max_digits=9999, decimal_places=2, default ="2.99")
     
     specifications = models.TextField(null=True, blank=True)
-    # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
-    
+    description = models.TextField(null=True, blank=True)
     
     product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
     
@@ -176,6 +174,9 @@ class CartOrderItems(models.Model):
 class ProductReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    
+    reviewer = models.CharField(max_length=100 , null=False, default="Anonymous")
+    reviewer_image = models.ImageField(upload_to="review", default="reviewer.jpg")
     review = models.TextField()
     rating = models.IntegerField(choices=RATING, default=None)
     date = models.DateTimeField(auto_now_add=True)
@@ -188,7 +189,6 @@ class ProductReview(models.Model):
     
     def get_rating(self):
         return self.rating
-    
     
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -208,3 +208,4 @@ class Address(models.Model):
 
     class Meta:
         verbose_name_plural = "Addresses"
+        

@@ -5,11 +5,14 @@ from . import models
 class ProductImagesAdmin(admin.TabularInline):
     model = models.ProductImages
 
+# inline for ProductAdditionalInfo
+
 # Product Admin
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImagesAdmin]
-    list_display = ['vendor', 'title', 'product_image', 'price', 'featured', 'product_status']
+    list_display = ['title', 'vendor', 'product_image', 'price', 'featured', 'product_status']
+
 
 # Category Admin
 @admin.register(models.Category)
@@ -34,7 +37,7 @@ class CardOrderItemsAdmin(admin.ModelAdmin):
 # Product Review Admin
 @admin.register(models.ProductReview)
 class ProductReviewAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'review', 'rating']
+    list_display = ['user', 'product', 'review', 'rating', 'reviewer']
 
 # Wishlist Admin
 @admin.register(models.Wishlist)
