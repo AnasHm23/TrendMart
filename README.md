@@ -7,6 +7,7 @@ An E-commerce website that's coming from the future
 - [TrendMart](#trendmart)
   - [Table of contents](#table-of-contents)
   - [home](#home)
+  - [products](#products)
   - [Project Description](#project-description)
   - [Features](#features)
   - [Installation](#installation)
@@ -19,6 +20,10 @@ An E-commerce website that's coming from the future
 ## home
 
 ![image](https://github.com/AnasHm23/TrendMart/blob/main/static/assets/imgs/main1.png)
+
+## products
+
+![image](https://github.com/AnasHm23/TrendMart/blob/main/static/assets/imgs/main2.png)
 
 ## Project Description
 
