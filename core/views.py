@@ -1,17 +1,31 @@
 from django.shortcuts import render, redirect
 from .models import Product, ProductImages, Category, Vendor
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 def index(request):
+    products = Product.objects.all().order_by("-id")
     return render(request, 'core/index.html')
 
 def product_list(request):
     products = Product.objects.all().order_by("-id")
+    
+    paginator = Paginator(products, 10)
+    page = request.GET.get('page')
+    
+    try:
+        products_paginated = paginator.page(page)
+    except PageNotAnInteger:
+        products_paginated = paginator.page(1)
+    except EmptyPage:
+        products_paginated = paginator.page(paginator.num_pages)
+    
     context = {
-        'products': products
+        'products': products_paginated
     }
-    return render(request, 'core/product_list.html', context) 
+    return render(request, 'core/product_list.html', context)
 
 def product_detail(request, pid):
     product = Product.objects.get(product_id=pid)
@@ -102,3 +116,21 @@ def filter_view(request):
     }
 
     return render(request, 'core/index.html', context)
+
+# def product_list(request):
+#     products = Product.objects.all().order_by("-id")
+    
+#     paginator = Paginator(products, 10)
+#     page = request.GET.get('page')
+    
+#     try:
+#         products_paginated = paginator.page(page)
+#     except PageNotAnInteger:
+#         products_paginated = paginator.page(1)
+#     except EmptyPage:
+#         products_paginated = paginator.page(paginator.num_pages)
+    
+#     context = {
+#         'products': products_paginated
+#     }
+#     return render(request, 'core/product.html', context)
