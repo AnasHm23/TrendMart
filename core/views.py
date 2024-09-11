@@ -83,14 +83,22 @@ def filter_view(request):
     min_price = request.GET.get("min_price")
     max_price = request.GET.get("max_price")
     
+    products = Product.objects.all()
+    
     if min_price:
-        products = Product.objects.filter(price__gte=min_price)
+        products = products.filter(price__gte=min_price)
     if max_price:
-        products = Product.objects.filter(price__lte=max_price)
+        products = products.filter(price__lte=max_price)
+        
+    if not products:
+        messages.warning(request, "No products found for your the chosen range of price")
+        return redirect('core:index')
     
     messages.success(request, 'Products have been successfully filtered!')
     context = {
         'products': products,
+        'min_price': min_price,
+        'max_price': max_price,
     }
 
     return render(request, 'core/index.html', context)
