@@ -7,7 +7,21 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
     products = Product.objects.all().order_by("-id")
-    return render(request, 'core/index.html')
+    
+    paginator = Paginator(products, 10)
+    page = request.GET.get('page')
+    
+    try:
+        product_paginated = paginator.page(page)
+    except PageNotAnInteger:
+        product_paginated = paginator.page(1)
+    except EmptyPage:
+        product_paginated = paginator.page(paginator.num_pages)
+    
+    context = {
+        'products': product_paginated
+    }
+    return render(request, 'core/index.html', context)
 
 def product_list(request):
     products = Product.objects.all().order_by("-id")
