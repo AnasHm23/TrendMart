@@ -18,7 +18,7 @@ An E-commerce website that's coming from the future
 
 ## home
 
-![image](https://github.com/AnasHm23/TrendMart/static/assets/imgs/main1)
+![image](https://github.com/AnasHm23/TrendMart/blob/main/static/assets/imgs/main1.png)
 
 ## Project Description
 
