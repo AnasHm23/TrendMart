@@ -13246,8 +13246,6 @@ input[type="range"]::-moz-range-thumb {
   color: black;
 }
 
-/* cart */
-.header-action-2 .header-action-icon-2 span.lable .cart-items-count:hover {
-  display: block;
-
+.product-price h4 {
+  display: inline;
 }

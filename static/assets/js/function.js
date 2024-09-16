@@ -62,18 +62,28 @@ $("#commentForm").submit(function (e) {
 
 
 // add to cart functionality
-$("#add-to-cart-btn").on("click", function() {
-    let quantity = $("#product-quantity").val()
-    let product_title = $(".product-title").val()
-    let product_id = $(".product-id").val()
-    let product_price = $("#product-price").text()
-    let this_val = $(this)
+$(document).on("click", "#add-to-cart-btn", function() {
+    let this_val = $(this);
+    let index = this_val.attr("data-index");
+
+    let quantity = $(".product-quantity-" + index).val();
+    let product_title = $(".product-title-" + index).val();
+    let product_image = $(".product-image-" + index).val();
+    
+    let product_pid = $(".product-pid-" + index).val();
+    let product_id = $(".product-id-"+ index).val();
+    let product_price = $("#product-price-" + index).text();
+    
 
     console.log("quantity:", quantity)
     console.log("product_title:", product_title)
     console.log("product_id:", product_id)
     console.log("product_price:", product_price)
+    console.log("product_pid:", product_pid)
     console.log("current element:", this_val)
+    console.log("index:", index)
+    console.log("product_image:", product_image)
+
 
     $.ajax({
         url: '/add-to-cart',
@@ -82,15 +92,17 @@ $("#add-to-cart-btn").on("click", function() {
             'title': product_title,
             'id': product_id,
             'price': product_price,
+            'pid': product_pid,
+            'image': product_image,
         },
         dataType: 'json',
         beforeSend: function() {
             console.log("Adding product to Cart...");
         },
         success: function(response) {
-            this_val.html("Item added to cart")
-            console.log("Added to Cart...")
-            $(".cart-items-count").text(response.totalcartitems)
+            this_val.html("<i class='fi-rs-shopping-cart'></i>✓");
+            console.log("Added to Cart...");
+            $(".cart-items-count").text(response.totalcartitems);
         },
     })
 })

@@ -193,12 +193,17 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <h4>${{ product.price }}</h4>
+                                                <h4>$</h4><h4 id="product-price-{{ product.id }}">{{ product.price }}</h4>
                                                 <h5 style="color: gray;" class="old-price">${{ product.old_price }}</h5>
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                            </div> 
+                                                <input type="hidden" value=1 class="product-quantity-{{ product.id }}" name="" id="">
+                                                <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
+                                                <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
+                                                <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
+                                                <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
+                                                <button type="button" class="add" data-index="{{ product.id }}" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add</button>    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

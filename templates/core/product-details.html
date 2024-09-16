@@ -61,7 +61,7 @@
                                             </div>
                                             <div class="clearfix product-price-cover">
                                                 <div class="product-price primary-color float-left">
-                                                    <span class="current-price text-brand">$</span><span class="current-price text-brand" id="product-price">{{product.price}}</span>
+                                                    <span class="current-price text-brand">$</span><span class="current-price text-brand" id="product-price-{{product.id}}">{{product.price}}</span>
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">{{product.get_percentage}} Off</span>
                                                     <span class="old-price font-md ml-15">${{product.old_price}}</span>
@@ -83,12 +83,14 @@
                                             </div>
                                             <div class="detail-extralink mb-50">
                                                 <div class="detail-qty border radius">
-                                                    <input type="hidden" value="{{ product.id }}" class="product-id" name="" id="">
-                                                    <input type="hidden" value="{{ product.title }}" class="product-title" name="" id="">
-                                                    <input class="qty-val" type="number" value="1" id="product-quantity">
+                                                    <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
+                                                    <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
+                                                    <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
+                                                    <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
+                                                    <input class="qty-val product-quantity-{{ product.id }}" type="number" value="1" id="product-quantity">
                                                 </div>
                                                 <div class="product-extra-link2">
-                                                    <button type="button" class="button button-add-to-cart" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart</button>
+                                                    <button type="button" data-index="{{ product.id }}" class="button button-add-to-cart" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>
                                                     <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
                                                 </div>
                                             </div>

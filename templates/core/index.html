@@ -98,33 +98,6 @@
                     </div>
 
 
-                    <!-- Fillter By Price -->
-                    {% comment %} <div class="sidebar-widget price_range range mb-30">
-                        <h5 class="section-title style-1 mb-30">Filter by price</h5>
-                        <div class="price-filter">
-                            <div class="price-filter-inner">
-                                <div id="slider-range" class="mb-20"></div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="caption">From: <strong id="slider-range-value1" class="text-brand"></strong></div>
-                                    <div class="caption">To: <strong id="slider-range-value2" class="text-brand"></strong></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group">
-                            <form action="{% url 'core:filter' %}"  method="get" class="list-group-item mb-10 mt-10">
-                                <label class="fw-500">Price</label>
-                                <div class="form-group mb-0">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="min_price" placeholder="Min">
-                                        <input type="text" class="form-control" name="max_price" placeholder="Max">
-                                    </div>
-                                </div>
-                                <br>
-                                <button class="btn btn-sm btn-default" type="submit">filter</button>
-                            </form>
-                        </div>
-                    </div> {% endcomment %}
-
                     <div class="list-group">
                         <form action="{% url 'core:filter' %}" method="get" class="form_price">
                             <h3 class="fw-500">filter by price</h3>
