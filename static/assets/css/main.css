@@ -5419,6 +5419,7 @@ table .product-thumbnail img {
   margin: 15px 0 30px 0;
 }
 
+
 .detail-info .product-price .current-price {
   font-size: 58px;
   text-decoration: none;
@@ -7441,6 +7442,7 @@ h6.post-title {
   font-size: 12px;
   text-align: center;
   line-height: 20px;
+  border: 3px solid blue;
 }
 
 .header-action-2 {
@@ -7702,16 +7704,16 @@ h6.post-title {
   top: calc(100% + 20px);
   z-index: 99;
   width: 320px;
-  background-color: #fff;
-  -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  -webkit-box-shadow: 5px 5px 10px #2cc1d8;
   padding: 30px 20px 27px;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  border-radius: 10px;
-  border: 1px solid #ececec;
+  border-radius: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px #2cc1d8;
 }
 
 .cart-dropdown-wrap.cart-dropdown-hm2 {
@@ -10071,7 +10073,7 @@ span.fi-rs-apps {
 
 .widget-category-2 .count {
   display: inline-block;
-  background-color: #bce3c9;
+  background-color: #7FC7D9;
   width: 24px;
   height: 24px;
   line-height: 24px;
@@ -12617,7 +12619,7 @@ footer .hotline img {
   .et,
   .hotline,
   li.hot-deals,
-  .header-action-2 .header-action-icon-2 span.lable {
+  .header-action-2 .header-action-icon-2 span.lable .cart-items-count {
     display: none !important;
   }
   .main-menu.main-menu-padding-1 > nav > ul > li {
@@ -13242,4 +13244,10 @@ input[type="range"]::-moz-range-thumb {
 
 .pagination .current {
   color: black;
+}
+
+/* cart */
+.header-action-2 .header-action-icon-2 span.lable .cart-items-count:hover {
+  display: block;
+
 }

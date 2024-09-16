@@ -74,18 +74,23 @@ $("#add-to-cart-btn").on("click", function() {
     console.log("product_id:", product_id)
     console.log("product_price:", product_price)
     console.log("current element:", this_val)
+
+    $.ajax({
+        url: '/add-to-cart',
+        data: {
+            'qty': quantity,
+            'title': product_title,
+            'id': product_id,
+            'price': product_price,
+        },
+        dataType: 'json',
+        beforeSend: function() {
+            console.log("Adding product to Cart...");
+        },
+        success: function(response) {
+            this_val.html("Item added to cart")
+            console.log("Added to Cart...")
+            $(".cart-items-count").text(response.totalcartitems)
+        },
+    })
 })
-
-// $("#add-to-cart-btn").on("click", function() {
-//     let quantity = $("#product-quantity").val();
-//     let product_title = $(".product-title").val();
-//     let product_id = $(".product-id").val();
-//     let product_price = $("#product-price").text(); // Ensure this element exists
-//     let this_val = $(this);
-
-//     console.log("quantity:", quantity);
-//     console.log("product_title:", product_title);
-//     console.log("product_id:", product_id);
-//     console.log("product_price:", product_price);
-//     console.log("current element:", this_val);
-// });

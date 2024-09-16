@@ -18,4 +18,7 @@ urlpatterns = [
     #search for a product
     path('search/', views.search_view, name='search'),
     path('filter/', views.filter_view, name='filter'),
+    
+    # cart
+    path('add-to-cart/', views.add_to_cart, name="add-to-cart")
 ]

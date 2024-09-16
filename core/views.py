@@ -2,11 +2,16 @@ from django.shortcuts import render, redirect
 from .models import Product, ProductImages, Category, Vendor
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 
 
 
 def index(request):
     products = Product.objects.all().order_by("-id")
+    top_selling = Product.objects.all().order_by("-id")[9:]
+    recently_added = Product.objects.all().order_by("-id")[:3]    
+    trendig_products = Product.objects.all().order_by("-id")[3:6]
+    top_rated = Product.objects.all().order_by("-id")[6:9]
     
     paginator = Paginator(products, 10)
     page = request.GET.get('page')
@@ -19,7 +24,11 @@ def index(request):
         product_paginated = paginator.page(paginator.num_pages)
     
     context = {
-        'products': product_paginated
+        'products': product_paginated,
+        'top_selling': top_selling,
+        'recently_added': recently_added,
+        'trendig_products': trendig_products,
+        'top_rated': top_rated,
     }
     return render(request, 'core/index.html', context)
 
@@ -131,20 +140,25 @@ def filter_view(request):
 
     return render(request, 'core/index.html', context)
 
-# def product_list(request):
-#     products = Product.objects.all().order_by("-id")
+
+def add_to_cart(request):
+    cart_product = {}
+    cart_product[str(request.GET['id'])] = {
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'price': request.GET['price']
+    }
     
-#     paginator = Paginator(products, 10)
-#     page = request.GET.get('page')
-    
-#     try:
-#         products_paginated = paginator.page(page)
-#     except PageNotAnInteger:
-#         products_paginated = paginator.page(1)
-#     except EmptyPage:
-#         products_paginated = paginator.page(paginator.num_pages)
-    
-#     context = {
-#         'products': products_paginated
-#     }
-#     return render(request, 'core/product.html', context)
+    if 'cart_data_obj' in request.session:
+        if str(request.GET['id']) in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj ']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cart_data_obj'] = cart_data
+        else:
+            cart_data = request.session['cart_data_obj']
+            cart_data.update(cart_product)
+            request.session['cart_data_obj'] = cart_data
+    else:
+        request.session['cart_data_obj']= cart_product
+    return JsonResponse({"data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})

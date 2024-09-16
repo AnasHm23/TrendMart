@@ -87,13 +87,9 @@
                                                                                     >{{ product.title }}</a
                                                                                     >
                                                                                 </h3>
-                                                                                <div class="product-detail-rating">
-                                                                                    <div class="product-rate-cover text-end">
-                                                                                        <div class="product-rate d-inline-block">
-                                                                                            <div class="product-rating" style="width: 90%"></div>
-                                                                                        </div>
-                                                                                        <span class="font-small ml-5 text-muted">
-                                                                                        (32 reviews)</span>
+                                                                                <div class="product-rate-cover">
+                                                                                    <div class="">
+                                                                                        <h5 style="width: 90%; height: 100%; color: gold;">{{product.vendor.get_rating_display}}</h5>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="clearfix product-price-cover">
@@ -146,7 +142,7 @@
                                                 <div class="product-img-action-wrap">
                                                     <div class="product-img product-img-zoom">
                                                         <a href="{% url 'core:product-detail' product.product_id %}">
-                                                            <img style="height: 150px;" class="default-img" src="{{ product.image.url }}" alt="" />
+                                                            <img style="height: 150px; width: 150px;" class="default-img" src="{{ product.image.url }}" alt="" />
                                                             <img class="hover-img" src="{{ product.image.url }}" alt="" />
                                                         </a>
                                                     </div>
@@ -164,10 +160,9 @@
                                                     </div>
                                                     <h2><a href="{% url 'core:product-detail' product.product_id %}">{{ product.title }}</a></h2>
                                                     <div class="product-rate-cover">
-                                                        <div class="product-rate d-inline-block">
-                                                            <div class="product-rating" style="width: 90%"></div>
+                                                        <div class="">
+                                                            <h5 style="width: 90%; height: 100%; color: gold;">{{product.vendor.get_rating_display}}</h5>
                                                         </div>
-                                                        <span class="font-small ml-5 text-muted">{{ p.vendor.get_rating_display }}</span>
                                                     </div>
                                                     <div>
                                                         <span class="font-small text-muted">
@@ -176,8 +171,8 @@
                                                     </div>
                                                     <div class="product-card-bottom">
                                                         <div class="product-price">
-                                                            <h3>${{ product.price }}</h3>
-                                                            <h4 style="color: gray;" class="old-price">${{ product.old_price }}</h4>
+                                                            <h4>${{ product.price }}</h4>
+                                                            <h5 style="color: gray;" class="old-price">${{ product.old_price }}</h5>
                                                         </div>
                                                         <div class="add-cart">
                                                             <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>

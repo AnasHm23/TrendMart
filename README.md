@@ -33,6 +33,7 @@ This project is a fully functional e-commerce website developed using Django. it
 
 - User Authentication (Login, Registration, Logout)
 - Product Management (Add, Edit, Delete, View Products)
+- Product Pagination
 - Shopping Cart (Add, Remove, Update items)
 - Checkout Process (Order Summary, Shipping information, Payment Integration)
 - Payment Gateway Integration (e.g., Stripe, PayPal)
