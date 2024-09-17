@@ -66,11 +66,21 @@ def category_products_list(request, cid):
     category = Category.objects.get(category_id=cid)
     
     if category is not None:
-        products = Product.objects.filter(category=category)
+        products = Product.objects.all().order_by("-id")
+    
+        paginator = Paginator(products, 10)
+        page = request.GET.get('page')
+        
+        try:
+            products_paginated = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginated = paginator.page(1)
+        except EmptyPage:
+            products_paginated = paginator.page(paginator.num_pages)
         messages.success(request, f"here are all the products related to {category.title} category")
         context = {
             'category': category,
-            'products': products,
+            'products': products_paginated,
         }
         return render(request, 'core/category-products-list.html', context)
     else:
@@ -81,11 +91,21 @@ def vendor_products_list(request, vid):
     vendor = Vendor.objects.get(vendor_id=vid)
     
     if vendor is not None:
-        products = Product.objects.filter(vendor=vendor)
+        products = Product.objects.all().order_by("-id")
+    
+        paginator = Paginator(products, 10)
+        page = request.GET.get('page')
+        
+        try:
+            products_paginated = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginated = paginator.page(1)
+        except EmptyPage:
+            products_paginated = paginator.page(paginator.num_pages)
         messages.success(request, "here are all the products related to the chosen vendor")
         context = {
             'vendor': vendor,
-            'products': products,
+            'products': products_paginated,
         }
         return render(request, "core/vendor-products.html", context)
     else:
