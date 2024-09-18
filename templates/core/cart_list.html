@@ -4,7 +4,7 @@
     <main class="main">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow">
+                <a href="{% url 'core:index' %}" rel="nofollow">
                     <i class="fi-rs-home mr-5"></i>home
                 </a>
                 <span></span> SHOP
@@ -17,7 +17,7 @@
                     <h1 class="heading-2 mb-10">Your Cart</h1>
                     <div class="d-flex justify-content-between">
                         <h6 class="text-body">There are <span class="test-brand" style="color: black">{{ totalcartitems }} </span>products in your cart</h6>
-                        <h6 class="text-body"><a href="#" class="text-muted"><i class="fi-rs-trash mr-5"></i>Clear Cart</a></h6>
+                        <button class="btn clear-all mt-0"><i style="color: black;" class="fi-rs-trash mr-5"></i>Clear Cart</button>
                     </div>
                 </div>
             </div>
@@ -38,24 +38,35 @@
                             </thead>
                             <tbody>
                                 {% for product_id, item in cart_data.items %}
+                                {% csrf_token %}
                                 <tr class="pt-30">
-                                    <td class="image product-thumbnail d-flex justify-content-center align-items-center"><img class="" src="{{ item.image }}" alt=""></td>
+                                    <td class="image product-thumbnail d-flex justify-content-center align-items-center">
+                                        <img class="" src="{{ item.image }}" alt="">
+                                    </td>
                                     <td class="product-des product-name">
-                                        <h4 class="mb-5 text-center"><a class="product-name mb-10 text-heading" href="{% url 'core:product-detail' item.pid %}">{{ item.title }}</a></h4>
+                                        <h4 class="mb-5 text-center">
+                                            <a class="product-name mb-10 text-heading" href="{% url 'core:product-detail' item.pid %}">{{ item.title }}</a>
+                                        </h4>
                                     </td>
                                     <td class="price" data-title="price">
                                         <h4 class="text-body text-center">{{ item.price }}$</h4>
                                     </td>
                                     <td class="text-center detail-info" data-title="Stock">
-                                        <div class="">
-                                            <input style="border: 1px solid #229799; color: #229799" value="{{ item.qty }}" type="number" placeholder="Qty" class="w-25 fs-4" name="" id="">
-                                        </div>
+                                        <input style="border: 1px solid #229799; color: #229799" value="{{ item.qty }}" type="number" class="qty-input qty-product w-25" data-product="{{ product_id }}">
                                     </td>
                                     <td class="price" data-title="Price">
                                         <h4 class="text-brand text-center">{% widthratio item.price 1 item.qty %}$</h4>
                                     </td>
-                                    <td class="action text-center" data-title="Refresh"><a href="#" class="text-muted"><i class="fi-rs-refresh large"></i></a></td>
-                                    <td class="action text-center" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                    <td class="action text-center" data-title="Refresh">
+                                        <button type="button" class="refresh-product btn btn-sm" data-product="{{ product_id }}">
+                                            <i class="fi-rs-refresh"></i>
+                                        </button>
+                                    </td>
+                                    <td class="action text-center" data-title="Remove">
+                                        <button type="button" class="delete-product btn btn-sm" data-product="{{ product_id }}">
+                                            <i class="fi-rs-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -63,7 +74,7 @@
                     </div>
                     <div class="divider-2 mb-30"></div>
                     <div class="cart-action d-flex justify-content-between">
-                        <a class="btn" href=" {% url 'core:index' %}"><i class="fi-rs-arrow-left mr-10"></i>Continue shopping</a>
+                        <a class="btn" href=" {% url 'core:products' %}"><i class="fi-rs-arrow-left mr-10"></i>Continue shopping</a>
                         <a href="#" class="btn mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Update cart</a>
                     </div>
                     <div class="row mt-50">

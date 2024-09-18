@@ -5,6 +5,7 @@ def default(request):
     products = Product.objects.all().order_by("-id")
     vendors = Vendor.objects.all()
     
+    
     return {
         'categories': categories,
         'products': products,

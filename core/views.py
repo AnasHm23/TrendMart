@@ -113,8 +113,9 @@ def vendor_products_list(request, vid):
         return redirect("core:index")
     
 
+
 def search_view(request):
-    query = request.GET.get("q")
+    query = request.POST.get("q")
     product = None
     related_products = None
     
@@ -136,9 +137,10 @@ def search_view(request):
     }
     return render(request, 'core/product-details.html', context)
 
+
 def filter_view(request):
-    min_price = request.GET.get("min_price")
-    max_price = request.GET.get("max_price")
+    min_price = request.POST.get("min_price")
+    max_price = request.POST.get("max_price")
     
     products = Product.objects.all()
     
@@ -160,31 +162,6 @@ def filter_view(request):
 
     return render(request, 'core/index.html', context)
 
-
-def add_to_cart(request):
-    cart_product = {}
-    cart_product[str(request.GET['id'])] = {
-        'title': request.GET['title'],
-        'qty': request.GET['qty'],
-        'price': request.GET['price'],
-        'image': request.GET['image'],
-        'pid': request.GET.get('pid'),
-    }
-    
-    if 'cart_data_obj' in request.session:
-        if str(request.GET['id']) in request.session['cart_data_obj']:
-            cart_data = request.session['cart_data_obj ']
-            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
-            cart_data.update(cart_data)
-            request.session['cart_data_obj'] = cart_data
-        else:
-            cart_data = request.session['cart_data_obj']
-            cart_data.update(cart_product)
-            request.session['cart_data_obj'] = cart_data
-    else:
-        request.session['cart_data_obj']= cart_product
-    return JsonResponse({"data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
-
 def cart_list(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
@@ -205,3 +182,97 @@ def cart_list(request):
     else:
         messages.warning(request, "Your cart is empty")
         return redirect('core:index')
+
+
+def add_to_cart(request):
+    cart_product = {}
+    cart_product[str(request.GET['id'])] = {
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'price': request.GET['price'],
+        'image': request.GET['image'],
+        'pid': request.GET.get('pid'),
+    }
+    
+    if 'cart_data_obj' in request.session:
+        if str(request.GET['id']) in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cart_data_obj'] = cart_data
+        else:
+            cart_data = request.session['cart_data_obj']
+            cart_data.update(cart_product)
+            request.session['cart_data_obj'] = cart_data
+    else:
+        request.session['cart_data_obj']= cart_product
+    return JsonResponse({"data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
+
+def delete_from_cart(request):
+    id = request.POST.get('id')
+    cart_total_amount = 0
+
+    if 'cart_data_obj' in request.session:
+        cart_data = request.session['cart_data_obj']
+
+        if id in cart_data:
+            del cart_data[id]
+            request.session['cart_data_obj'] = cart_data
+            
+            request.session.modified = True
+
+        for p_id, item in cart_data.items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+
+        if not cart_data:
+            del request.session['cart_data_obj']
+            context = {
+                "data": {},
+                'totalcartitems': 0,
+                'cart_total_amount': 0,
+            }
+        else:
+            context = {
+                "data": cart_data,
+                'totalcartitems': len(cart_data),
+                'cart_total_amount': cart_total_amount,
+            }
+    else:
+        context = {
+            "data": {},
+            'totalcartitems': 0,
+            'cart_total_amount': 0,
+        }
+
+    return JsonResponse(context)
+
+def update_cart(request):
+    id = request.POST.get('id')
+    qty = request.POST.get('qty')
+    cart_total_amount = 0
+    
+    if 'cart_data_obj' in request.session:
+        cart_data = request.session['cart_data_obj']
+        
+        if id in cart_data:
+            cart_data[id]['qty'] = qty
+            request.session['cart_data_obj'] = cart_data
+            request.session.modified = True
+        
+        for p_id, item in cart_data.items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+
+        context = {
+            "data": cart_data,
+            'totalcartitems': len(cart_data),
+            'cart_total_amount': cart_total_amount,
+            'qty': qty,
+        }
+    else:
+        context = {
+            "data": {},
+            'totalcartitems': 0,
+            'cart_total_amount': 0,
+        }
+
+    return JsonResponse(context)

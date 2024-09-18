@@ -44,7 +44,7 @@
                                             <div class="product-cart-wrap mb-30">
 
                                                 <!-- Quick view -->
-                                                <div class="modal fade custom-modal" id="quickViewModalProduct{{p.id}}" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+                                                <div class="modal fade custom-modal" id="quickViewModalProduct{{product.id}}" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <button
@@ -62,8 +62,8 @@
                                                                             <div class="product-image-slider">
                                                                                 <figure class="border-radius-10">
                                                                                 <img
-                                                                                    style="height: 400px; width: 400px;"
-                                                                                    src="{{ p.image.url }}"
+                                                                                    style="width: 400px;"
+                                                                                    src="{{ product.image.url }}"
                                                                                     alt="product image"
                                                                                 />
                                                                                 </figure>
@@ -72,7 +72,7 @@
                                                                             <div class="slider-nav-thumbnails">
                                                                                 <div>
                                                                                     <img
-                                                                                        src="{{ p.image.url }}"
+                                                                                        src="{{ product.image.url }}"
                                                                                         alt="product image"
                                                                                     />
                                                                                 </div>
@@ -90,17 +90,17 @@
                                                                                 </h3>
                                                                                 <div class="product-detail-rating">
                                                                                     <div title="90%">
-                                                                                        <span style="color: gold;"> {{p.vendor.get_rating_display}}</span>
+                                                                                        <span style="color: gold;"> {{product.vendor.get_rating_display}}</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="clearfix product-price-cover">
                                                                                     <div class="product-price primary-color float-left">
-                                                                                    <span>$</span><span id="product-price-{{ product.id }}" class="current-price text-brand">{{ p.price}}</span>
+                                                                                    <span class="current-price text-brand">$</span><span id="product-price-{{ product.id }}" class="current-price text-brand">{{ product.price}}</span>
                                                                                     <span>
                                                                                         <span class="save-price font-md color3 ml-15"
                                                                                         >{{ p.get_percentage }} Off</span
                                                                                         >
-                                                                                        <span class="old-price font-md ml-15">${{ p.old_price }}</span>
+                                                                                        <span class="old-price font-md ml-15">${{ product.old_price }}</span>
                                                                                     </span>
                                                                                     </div>
                                                                                 </div>

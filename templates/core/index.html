@@ -99,8 +99,9 @@
 
 
                     <div class="list-group">
-                        <form action="{% url 'core:filter' %}" method="get" class="form_price">
+                        <form action="{% url 'core:filter' %}" method="post" class="form_price">
                             <h3 class="fw-500">filter by price</h3>
+                            {% csrf_token %}
                             <div class="form-group mb-0">
                                 <div class="input-group">
                                     <!-- Slider for Min Price -->
@@ -167,7 +168,7 @@
                             <article class="row align-items-center hover-up">
                                 {% for p in top_selling %}
                                 <figure class="col-md-4 mb-0">
-                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px;" src="{{ p.image.url }}" alt="" /></a>
+                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px; width: 120px;" src="{{ p.image.url }}" alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
@@ -193,7 +194,7 @@
                             <article class="row align-items-center hover-up">
                                 {% for p in trendig_products %}
                                 <figure class="col-md-4 mb-0">
-                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px;" src="{{ p.image.url }}" alt="" /></a>
+                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px; width: 120px;" src="{{ p.image.url }}" alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
@@ -219,7 +220,7 @@
                             <article class="row align-items-center hover-up">
                                 {% for p in recently_added %}
                                 <figure class="col-md-4 mb-0">
-                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px;" src="{{ p.image.url }}" alt="" /></a>
+                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px; width: 120px;" src="{{ p.image.url }}" alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
@@ -245,7 +246,7 @@
                             <article class="row align-items-center hover-up">
                                 {% for p in top_rated %}
                                 <figure class="col-md-4 mb-0">
-                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px;" src="{{ p.image.url }}" alt="" /></a>
+                                    <a href="{% url 'core:product-detail' p.product_id %}"><img style="height: 120px; width: 120px;" src="{{ p.image.url }}" alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
