@@ -182,7 +182,7 @@
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="shop-grid-right.html">{{ product.category.title }}</a>
+                                            <a href="{% url 'core:category-products' product.category.category_id %}">{{ product.category.title }}</a>
                                         </div>
                                         <h2><a href="{% url 'core:product-detail' product.product_id %}">{{ product.title }}</a></h2>
                                         <div class="product-rate-cover">
@@ -192,12 +192,12 @@
                                         </div>
                                         <div>
                                             <span class="font-small text-muted">
-                                                By <a href="vendor-details-1.html">{{ product.vendor.title }} </a>
+                                                By <a href="{% url 'core:vendor-products' product.vendor.vendor_id %}">{{ product.vendor.title }} </a>
                                             </span>
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <h4>$</h4><h4 id="product-price-{{ product.id }}">{{ product.price }}</h4>
+                                                <h4>$</h4><h4 class="product-price-{{ product.id }}">{{ product.price }}</h4>
                                                 <h5 style="color: gray;" class="old-price">${{ product.old_price }}</h5>
                                             </div>
                                             <div class="add-cart">

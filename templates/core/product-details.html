@@ -30,19 +30,14 @@
                                             <!-- MAIN SLIDES -->
                                             <div class="product-image-slider">
                                                 <figure class="border-radius-10">
-                                                <div class="slider-for">
-                                                    {% if product.image %}
-                                                        <div><img style="width: 500px; height: 500px" src="{{ product.image.url }}" alt="product image" /></div>
-                                                    {% endif %}
-                                                </div>
-                                            </figure>
+                                                        {% if product.image %}
+                                                            <img src="{{ product.image.url }}" alt="product image" style="width: 550px; height: 550px"/>
+                                                        {% endif %}
+                                                </figure>
                                             </div>
                                             <!-- THUMBNAILS -->
                                             <div class="slider-nav-thumbnails">
                                                 <div><img style="width: 100px; height: 100px" src="{{ product.image.url}}" alt="product image" /></div>
-                                                {% for p in product_images %}
-                                                <div><img style="width: 100px; height: 100px" src="{{ p.product_images.url }}" alt="product image" /></div>
-                                                {% endfor %}
                                             </div>
                                         </div>
                                         <!-- End Gallery -->
@@ -61,7 +56,7 @@
                                             </div>
                                             <div class="clearfix product-price-cover">
                                                 <div class="product-price primary-color float-left">
-                                                    <span class="current-price text-brand">$</span><span class="current-price text-brand" id="product-price-{{product.id}}">{{product.price}}</span>
+                                                    <h4 class="current-price text-brand">$<span class="product-price-{{product.id}}" >{{product.price}}</span></h4>
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">{{product.get_percentage}} Off</span>
                                                     <span class="old-price font-md ml-15">${{product.old_price}}</span>
@@ -71,23 +66,15 @@
                                             <div class="short-desc mb-30">
                                                 <p class="font-lg">{{ product.description|truncatechars:100 }}</p>
                                             </div>
-                                            <div class="attr-detail attr-size mb-30">
-                                                <strong class="mr-10">Size / Weight: </strong>
-                                                <ul class="list-filter size-filter font-small">
-                                                    <li><a href="#">50g</a></li>
-                                                    <li class="active"><a href="#">60g</a></li>
-                                                    <li><a href="#">80g</a></li>
-                                                    <li><a href="#">100g</a></li>
-                                                    <li><a href="#">150g</a></li>
-                                                </ul>
-                                            </div>
+                                            <input class="qty-val product-quantity-{{ product.id }} mb-10 w-25 text-center fs-1" type="number" value="1" 
+                                                    style="color: #229799; height: 50px; border : 1px solid #229799; border-radius: 25%;" 
+                                                    id="product-quantity">
                                             <div class="detail-extralink mb-50">
-                                                <div class="detail-qty border radius">
+                                                <div class="">
                                                     <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
                                                     <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
                                                     <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
                                                     <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
-                                                    <input class="qty-val product-quantity-{{ product.id }}" type="number" value="1" id="product-quantity">
                                                 </div>
                                                 <div class="product-extra-link2">
                                                     <button type="button" data-index="{{ product.id }}" class="button button-add-to-cart" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>
@@ -178,155 +165,168 @@
                                     </div>
                                 </div>
                                 <div class="row mt-60">
-                                    {% if products %}
+                                {% if related_products %}
                                     <div class="col-12">
                                         <h2 class="section-title style-1 mb-30">Related products</h2>
                                     </div>
-                                    {% endif %}
                                     <div class="col-12">
                                         <div class="row related-products">
-                                            {% for p in related_products %}
-                                            <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                                            {% for product in related_products %}
+                                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                                                <div class="product-cart-wrap mb-30">
 
-                                                <!-- Quick view -->
-                                                <div class="modal fade custom-modal" id="quickViewModalProduct{{p.id}}" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <button
-                                                                type="button"
-                                                                class="btn-close"
-                                                                data-bs-dismiss="modal"
-                                                                aria-label="Close"
-                                                            ></button>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
-                                                                        <div class="detail-gallery">
-                                                                            <span class="zoom-icon"><i class="fi-rs-search"></i></span>
-                                                                            <!-- MAIN SLIDES -->
-                                                                            <div class="product-image-slider">
-                                                                                <figure class="border-radius-10">
-                                                                                <img
-                                                                                    style="height: 400px; width: 400px;"
-                                                                                    src="{{ p.image.url }}"
-                                                                                    alt="product image"
-                                                                                />
-                                                                                </figure>
-                                                                            </div>
-                                                                            <!-- THUMBNAILS -->
-                                                                            <div class="slider-nav-thumbnails">
-                                                                                <div>
-                                                                                    <img
-                                                                                        src="{{ p.image.url }}"
-                                                                                        alt="product image"
-                                                                                    />
+                                                    <!-- Quick view -->
+                                                                <div class="modal fade custom-modal" id="quickViewModalProduct{{product.id}}" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <button
+                                                                                type="button"
+                                                                                class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"
+                                                                            ></button>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
+                                                                                        <div class="detail-gallery">
+                                                                                            <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                                                                            <!-- MAIN SLIDES -->
+                                                                                            <div class="product-image-slider">
+                                                                                                <figure class="border-radius-10">
+                                                                                                <img
+                                                                                                    style="width: 400px;"
+                                                                                                    src="{{ product.image.url }}"
+                                                                                                    alt="product image"
+                                                                                                />
+                                                                                                </figure>
+                                                                                            </div>
+                                                                                            <!-- THUMBNAILS -->
+                                                                                            <div class="slider-nav-thumbnails">
+                                                                                                <div>
+                                                                                                    <img
+                                                                                                        src="{{ product.image.url }}"
+                                                                                                        alt="product image"
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                            <!-- End Gallery -->
+                                                                                    </div>
+                                                                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                                                                            <div class="detail-info pr-30 pl-30">
+                                                                                                <span class="stock-status out-stock"> Sale Off </span>
+                                                                                                <h3 class="title-detail">
+                                                                                                    <a href="shop-product-right.html" class="text-heading"
+                                                                                                    >{{ product.title }}</a
+                                                                                                    >
+                                                                                                </h3>
+                                                                                                <div class="product-detail-rating">
+                                                                                                    <div title="90%">
+                                                                                                        <span style="color: gold;"> {{product.vendor.get_rating_display}}</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="clearfix product-price-cover">
+                                                                                                    <div class="product-price primary-color float-left">
+                                                                                                    <span>$</span><span id="product-price-{{ product.id }}" class="current-price text-brand">{{ product.price}}</span>
+                                                                                                    <span>
+                                                                                                        <span class="save-price font-md color3 ml-15"
+                                                                                                        >{{ product.get_percentage }} Off</span
+                                                                                                        >
+                                                                                                        <span class="old-price font-md ml-15">${{ product.old_price }}</span>
+                                                                                                    </span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="detail-extralink mb-30">
+                                                                                                    <div class="detail-qty border radius">
+                                                                                                    <a href="#" class="qty-down"
+                                                                                                        ><i class="fi-rs-angle-small-down"></i
+                                                                                                    ></a>
+                                                                                                    <span class="qty-val">1</span>
+                                                                                                    <a href="#" class="qty-up"
+                                                                                                        ><i class="fi-rs-angle-small-up"></i
+                                                                                                    ></a>
+                                                                                                    </div>
+                                                                                                    <div class="add-cart">
+                                                                                                        <input type="hidden" value=1 class="product-quantity-{{ product.id }}" name="" id="">
+                                                                                                        <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
+                                                                                                        <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
+                                                                                                        <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
+                                                                                                        <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
+                                                                                                        <button style="height: 50px" type="button" class="button button-add-to-cart" data-index="{{ product.id }}" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="font-xs">
+                                                                                                    <ul>
+                                                                                                    <li class="mb-5">
+                                                                                                        Vendor: <span class="text-brand">{{ product.vendor.title }}</span>
+                                                                                                    </li>
+                                                                                                    <li class="mb-5">
+                                                                                                        MFG:<span class="text-brand"> {{ product.date }} </span>
+                                                                                                    </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        <!-- Detail Info -->
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                            <!-- End Gallery -->
-                                                                    </div>
-                                                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                                                            <div class="detail-info pr-30 pl-30">
-                                                                                <span class="stock-status out-stock"> Sale Off </span>
-                                                                                <h3 class="title-detail">
-                                                                                    <a href="shop-product-right.html" class="text-heading"
-                                                                                    >{{ p.title }}</a
-                                                                                    >
-                                                                                </h3>
-                                                                                <div class="product-detail-rating">
-                                                                                    <div title="90%">
-                                                                                        <span style="color: gold;"> {{p.vendor.get_rating_display}}</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="clearfix product-price-cover">
-                                                                                    <div class="product-price primary-color float-left">
-                                                                                    <span>$</span><span id="product-price-{{ product.id }}" class="current-price text-brand">{{ p.price}}</span>
-                                                                                    <span>
-                                                                                        <span class="save-price font-md color3 ml-15"
-                                                                                        >{{ p.get_percentage }} Off</span
-                                                                                        >
-                                                                                        <span class="old-price font-md ml-15">${{ p.old_price }}</span>
-                                                                                    </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="detail-extralink mb-30">
-                                                                                    <div class="detail-qty border radius">
-                                                                                    <a href="#" class="qty-down"
-                                                                                        ><i class="fi-rs-angle-small-down"></i
-                                                                                    ></a>
-                                                                                    <span class="qty-val">1</span>
-                                                                                    <a href="#" class="qty-up"
-                                                                                        ><i class="fi-rs-angle-small-up"></i
-                                                                                    ></a>
-                                                                                    </div>
-                                                                                    <div class="add-cart">
-                                                                                        <input type="hidden" value=1 class="product-quantity-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
-                                                                                        <button style="height: 50px" type="button" class="button button-add-to-cart" data-index="{{ product.id }}" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>    
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="font-xs">
-                                                                                    <ul>
-                                                                                    <li class="mb-5">
-                                                                                        Vendor: <span class="text-brand">{{ p.vendor.title }}</span>
-                                                                                    </li>
-                                                                                    <li class="mb-5">
-                                                                                        MFG:<span class="text-brand"> {{ p.date }} </span>
-                                                                                    </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        <!-- Detail Info -->
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end Quick view -->
+                                                                <!-- end Quick view -->
 
-                                                <div class="product-cart-wrap hover-up">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="{% url 'core:product-detail' p.product_id %}" tabindex="0">
-                                                                <img style="height: 200px;" class="default-img" src="{{ p.image.url }}" alt="" />
-                                                                <img class="hover-img" src="{{ p.image.url }}" alt="" />
+                                                            <a href="{% url 'core:product-detail' product.product_id %}">
+                                                                <img style="width: 200px; height: 150px; padding: 10px; border-radius: 25%; padding: 10px;" class="default-img" src="{{ product.image.url }}" alt="" />
+                                                                <img class="hover-img" src="{{ product.image.url }}" alt="" />
                                                             </a>
                                                         </div>
                                                         <div class="product-action-1 d-flex align-content-center">
-                                                        <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                        <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModalProduct{{p.id}}"><i class="fi-rs-eye"></i></a>
-                                                    </div>
+                                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModalProduct{{product.id}}"><i class="fi-rs-eye"></i></a>
+                                                        </div>
                                                         <div class="product-badges product-badges-position product-badges-mrg">
-                                                            <span class="hot">{{ p.get_percentage }}</span>
+                                                            <span class="hot">{{ product.get_percentage }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
                                                         <div class="product-category">
-                                                            <a href="{% url 'core:category-products' p.category.category_id %}">{{ p.category.title }}</a>
+                                                            <a href="{% url 'core:category-products' product.category.category_id %}">{{ product.category.title }}</a>
                                                         </div>
-                                                        <h2><a href="{% url 'core:product-detail' p.product_id %}" tabindex="0">{{ p.title }}</a></h2>
+                                                        <h2><a href="{% url 'core:product-detail' product.product_id %}">{{ product.title }}</a></h2>
+                                                        <div class="product-rate-cover">
+                                                            <div class="">
+                                                                <h5 style="width: 90%; height: 100%; color: gold;">{{product.vendor.get_rating_display}}</h5>
+                                                            </div>
+                                                        </div>
                                                         <div>
                                                             <span class="font-small text-muted">
-                                                                By <a href="vendor-details-1.html">{{ product.vendor.title }} </a>
+                                                                By <a href="{% url 'core:vendor-products' product.vendor.vendor_id %}">{{ product.vendor.title }} </a>
                                                             </span>
                                                         </div>
-                                                        <div title="90%">
-                                                            <span style="color: gold;"> {{p.vendor.get_rating_display}}</span>
-                                                        </div>
-                                                        <div class="product-price">
-                                                            <span>${{p.price}} </span>
-                                                            <span class="old-price">${{p.old_price}}</span>
+                                                        <div class="product-card-bottom">
+                                                            <div class="product-price">
+                                                                <h4>$</h4><h4 class="product-price-{{ product.id }}">{{ product.price }}</h4>
+                                                                <h5 style="color: gray;" class="old-price">${{ product.old_price }}</h5>
+                                                            </div>
+                                                            <div class="add-cart">
+                                                                <input type="hidden" value=1 class="product-quantity-{{ product.id }}" name="" id="">
+                                                                <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
+                                                                <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
+                                                                <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
+                                                                <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
+                                                                <button type="button" class="add mt-10 ml-10" data-index="{{ product.id }}" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add</button>    
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {% endfor %}
+                                        
+                                        {% endfor %}
                                         </div>
                                     </div>
+                                {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -409,86 +409,6 @@
                                     </li>
                                     {% endfor %}
                                 </ul>
-                            </div>
-                            <!-- Fillter By Price -->
-                            <div class="sidebar-widget price_range range mb-30">
-                                <h5 class="section-title style-1 mb-30">Fill by price</h5>
-                                <div class="price-filter">
-                                    <div class="price-filter-inner">
-                                        <div id="slider-range" class="mb-20"></div>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="caption">From: <strong id="slider-range-value1" class="text-brand"></strong></div>
-                                            <div class="caption">To: <strong id="slider-range-value2" class="text-brand"></strong></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-group">
-                                    <div class="list-group-item mb-10 mt-10">
-                                        <label class="fw-900">Color</label>
-                                        <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                            <br />
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                            <br />
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
-                                        </div>
-                                        <label class="fw-900 mt-15">Item Condition</label>
-                                        <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                            <br />
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                            <br />
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="shop-grid-right.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
-                            </div>
-                            <!-- Product sidebar Widget -->
-                            <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
-                                <h5 class="section-title style-1 mb-30">New products</h5>
-                                <div class="single-post clearfix">
-                                    <div class="image">
-                                        <img src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}" alt="#" />
-                                    </div>
-                                    <div class="content pt-10">
-                                        <h5><a href="shop-product-detail.html">Chen Cardigan</a></h5>
-                                        <p class="price mb-0 mt-5">$99.50</p>
-                                        <div class="product-rate">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-post clearfix">
-                                    <div class="image">
-                                        <img src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}" alt="#" />
-                                    </div>
-                                    <div class="content pt-10">
-                                        <h6><a href="shop-product-detail.html">Chen Sweater</a></h6>
-                                        <p class="price mb-0 mt-5">$89.50</p>
-                                        <div class="product-rate">
-                                            <div class="product-rating" style="width: 80%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-post clearfix">
-                                    <div class="image">
-                                        <img src="{% static 'assets/imgs/shop/thumbnail-5.jpg' %}" alt="#" />
-                                    </div>
-                                    <div class="content pt-10">
-                                        <h6><a href="shop-product-detail.html">Colorful Jacket</a></h6>
-                                        <p class="price mb-0 mt-5">$25</p>
-                                        <div class="product-rate">
-                                            <div class="product-rating" style="width: 60%"></div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

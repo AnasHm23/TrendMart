@@ -1224,7 +1224,7 @@ button[type="submit"]:hover {
 
 .btn:hover,
 .button:hover {
-  background-color: #fdc040;
+  background-color: #1d1d1f;
 }
 
 .btn.btn-sm,
@@ -4479,7 +4479,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-card-bottom .add-cart .add:hover {
-  background-color: #3294a5;
+  background-color: #212526;
   color: #fff;
   -webkit-transform: translateY(-3px);
   transform: translateY(-3px);

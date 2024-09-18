@@ -20,5 +20,6 @@ urlpatterns = [
     path('filter/', views.filter_view, name='filter'),
     
     # cart
-    path('add-to-cart/', views.add_to_cart, name="add-to-cart")
+    path('add-to-cart/', views.add_to_cart, name="add-to-cart"),
+    path('cart/', views.cart_list, name="cart"),
 ]

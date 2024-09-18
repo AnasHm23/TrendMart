@@ -66,7 +66,7 @@ def category_products_list(request, cid):
     category = Category.objects.get(category_id=cid)
     
     if category is not None:
-        products = Product.objects.all().order_by("-id")
+        products = Product.objects.filter(category=category).order_by("-id")
     
         paginator = Paginator(products, 10)
         page = request.GET.get('page')
@@ -91,7 +91,7 @@ def vendor_products_list(request, vid):
     vendor = Vendor.objects.get(vendor_id=vid)
     
     if vendor is not None:
-        products = Product.objects.all().order_by("-id")
+        products = Product.objects.filter(vendor=vendor).order_by("-id")
     
         paginator = Paginator(products, 10)
         page = request.GET.get('page')
@@ -184,3 +184,24 @@ def add_to_cart(request):
     else:
         request.session['cart_data_obj']= cart_product
     return JsonResponse({"data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
+
+def cart_list(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for product_id, item in request.session['cart_data_obj'].items():
+            if item['price'] and item['qty']:
+                try:
+                    cart_total_amount += int(item['qty']) * float(item['price'])
+                except ValueError:
+                    continue
+            else:
+                continue
+        
+        return render(request, 'core/cart_list.html', {
+            'cart_data': request.session['cart_data_obj'], 
+            'totalcartitems': len(request.session['cart_data_obj']), 
+            'cart_total_amount': cart_total_amount
+        })
+    else:
+        messages.warning(request, "Your cart is empty")
+        return redirect('core:index')

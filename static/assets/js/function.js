@@ -72,7 +72,8 @@ $(document).on("click", "#add-to-cart-btn", function() {
     
     let product_pid = $(".product-pid-" + index).val();
     let product_id = $(".product-id-"+ index).val();
-    let product_price = $("#product-price-" + index).text();
+    let product_price = $(".product-price-" + index).text();
+
     
 
     console.log("quantity:", quantity)
