@@ -85,7 +85,7 @@
                                                                                 <span class="stock-status out-stock"> Sale Off </span>
                                                                                 <h3 class="title-detail">
                                                                                     <a href="shop-product-right.html" class="text-heading"
-                                                                                    >{{ p.title }}</a
+                                                                                    >{{ product.title }}</a
                                                                                     >
                                                                                 </h3>
                                                                                 <div class="product-detail-rating">
@@ -95,42 +95,44 @@
                                                                                 </div>
                                                                                 <div class="clearfix product-price-cover">
                                                                                     <div class="product-price primary-color float-left">
-                                                                                    <span class="current-price text-brand">$</span><span id="product-price-{{ product.id }}" class="current-price text-brand">{{ product.price}}</span>
+                                                                                        <h4 class="current-price text-brand">$<span class="product-price-{{product.id}}" >{{product.price}}</span></h4>
                                                                                     <span>
                                                                                         <span class="save-price font-md color3 ml-15"
-                                                                                        >{{ p.get_percentage }} Off</span
+                                                                                        >{{ product.get_percentage }} Off</span
                                                                                         >
                                                                                         <span class="old-price font-md ml-15">${{ product.old_price }}</span>
                                                                                     </span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="detail-extralink mb-30">
-                                                                                    <div class="detail-qty border radius">
-                                                                                    <a href="#" class="qty-down"
-                                                                                        ><i class="fi-rs-angle-small-down"></i
-                                                                                    ></a>
-                                                                                    <span class="qty-val">1</span>
-                                                                                    <a href="#" class="qty-up"
-                                                                                        ><i class="fi-rs-angle-small-up"></i
-                                                                                    ></a>
-                                                                                    </div>
-                                                                                    <div class="add-cart">
-                                                                                        <input type="hidden" value=1 class="product-quantity-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
-                                                                                        <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
-                                                                                        <button style="height: 50px" type="button" class="button button-add-to-cart" data-index="{{ product.id }}" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>    
+                                                                                    <input class="qty-val product-quantity-{{ product.id }} mb-10 w-25 text-center fs-1" type="number" value="1" 
+                                                                                        style="color: #229799; height: 50px; border : 1px solid #229799; border-radius: 25%;" 
+                                                                                        id="product-quantity">
+                                                                                    <div class="detail-extralink mb-50">
+                                                                                        <div class="">
+                                                                                            <input type="hidden" value="{{ product.title }}" class="product-title-{{ product.id }}" name="" id="">
+                                                                                            <input type="hidden" value="{{ product.id }}" class="product-id-{{ product.id }}" name="" id="">
+                                                                                            <input type="hidden" value="{{ product.product_id }}" class="product-pid-{{ product.id }}" name="" id="">
+                                                                                            <input type="hidden" value="{{ product.image.url }}" class="product-image-{{ product.id }}" name="" id="">
+                                                                                        </div>
+                                                                                        <div class="product-extra-link2">
+                                                                                            <button type="button" data-index="{{ product.id }}" class="button button-add-to-cart" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>
+                                                                                            <a style="background-color: #229799; border: 2px solid #229799; border-radius: 50%" aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i style="color: white" class="fi-rs-heart"></i></a>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="font-xs">
                                                                                     <ul>
-                                                                                    <li class="mb-5">
-                                                                                        Vendor: <span class="text-brand">{{ p.vendor.title }}</span>
-                                                                                    </li>
-                                                                                    <li class="mb-5">
-                                                                                        MFG:<span class="text-brand"> {{ p.date }} </span>
-                                                                                    </li>
+                                                                                        <li class="mb-5">
+                                                                                            <h4>
+                                                                                                Vendor: <a href="{% url 'core:vendor-products' product.vendor.vendor_id %}" class="text-brand">{{ product.vendor.title }}</a>
+                                                                                            </h4>
+                                                                                        </li>
+                                                                                        <li class="mb-5">
+                                                                                            <h4>
+                                                                                                category: <a href="{% url 'core:category-products' product.category.category_id %}" class="text-brand"> {{ product.category.title }} </a>
+                                                                                            </h4>
+                                                                                        </li>
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>

@@ -276,3 +276,15 @@ def update_cart(request):
         }
 
     return JsonResponse(context)
+
+def clear_cart(request):
+    if request.method == 'POST':
+        if 'cart_data_obj' in request.session:
+            del request.session['cart_data_obj']
+            request.session.modified = True
+        return JsonResponse({'message': 'Cart cleared successfully'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def checkout_view(request):
+    pass

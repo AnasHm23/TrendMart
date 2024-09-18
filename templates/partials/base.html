@@ -233,16 +233,37 @@
                     </a>
                     <a href="{% url 'core:cart' %}"><span class="lable">Cart</span></a>
                     <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                      
+                      <ul>
+                        {% for product_id, item in cart_data.items %}
+                        <li class="w-100 d-flex align-content-center p-1 m-0" style="border-bottom: 1px solid #63a2c1">
+                          <div class="shopping-cart-img">
+                            <a href="shop-product-right.html"
+                            ><img
+                            style="width: 50px; height: 75px"
+                            alt="TrendMart"
+                            src="{{ item.image }}"
+                            /></a>
+                          </div>
+                          <div class="shopping-cart-title">
+                            <h4>
+                              <a href="{% url 'core:product-detail' item.pid %}"
+                                >{{ item.title }}</a
+                              >
+                            </h4>
+                            <h4 class="fs-10 fw-bold">Qty: {{item.qty}}</h4>
+                            <h4 class="fs-5 fw-bolder"> ${{item.price}}</h4>
+                          </div>
+                          <div class="shopping-cart-delete">
+                            <button type="button" class="delete-product btn btn-sm h-50" data-product="{{ product_id }}">
+                                <i class="fi-rs-trash"></i>
+                            </button>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      </ul>
                       <div class="shopping-cart-footer">
                         <div class="shopping-cart-button">
-                          {% comment %} {% for product_id, item in cart_data.items %}
-                          <ul>
-                            <li>
-                              <h4><a href="#">{{ item.title }}</a></h4>
-                            </li>
-                          </ul>
-                          {% endfor %} {% endcomment %}
+                          
                           <a href="{% url 'core:cart' %}" class="outline">View cart</a>
                           <a href="shop-checkout.html">Checkout</a>
                         </div>

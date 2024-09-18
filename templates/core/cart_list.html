@@ -52,13 +52,13 @@
                                         <h4 class="text-body text-center">{{ item.price }}$</h4>
                                     </td>
                                     <td class="text-center detail-info" data-title="Stock">
-                                        <input style="border: 1px solid #229799; color: #229799" value="{{ item.qty }}" type="number" class="qty-input qty-product w-25" data-product="{{ product_id }}">
+                                        <input style="border: 3px solid #229799; color: #229799" value="{{ item.qty }}" type="number" class="qty-input qty-product w-25 fs-5 fw-bolder" data-product="{{ product_id }}">
                                     </td>
                                     <td class="price" data-title="Price">
                                         <h4 class="text-brand text-center">{% widthratio item.price 1 item.qty %}$</h4>
                                     </td>
                                     <td class="action text-center" data-title="Refresh">
-                                        <button type="button" class="refresh-product btn btn-sm" data-product="{{ product_id }}">
+                                        <button type="button" class="refresh-product btn btn-sm" id="refresh-product" data-product="{{ product_id }}">
                                             <i class="fi-rs-refresh"></i>
                                         </button>
                                     </td>
@@ -84,7 +84,7 @@
                                     <h4 class="mb-10">Calculate Shipping</h4>
                                     <p class="mb-30"><span class="font-lg text-muted">Flat rate: </span><Strong class="text-brand">{{ cart_total_amount }}$</Strong></Strong></p>
                                 </div>
-                                <a href="#" class="btn fs-4 h-25">Checkout <i class="fi-rs-arrow-right ml-10 mr-10 "></i></a>
+                                <a href="#refresh-product" class="btn fs-4 h-25">Checkout <i class="fi-rs-arrow-right ml-10 mr-10 "></i></a>
                             </div>
                         </div>
                     </div>

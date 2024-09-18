@@ -183,7 +183,7 @@ $(document).on("click", ".refresh-product", function() {
 
 // clear the cart
 $(document).on("click", ".clear-all", function() {
-
+    console.log("the cart is being cleared")
     $.ajax({
         url: '/clear-cart/',
         method: 'POST',
@@ -191,5 +191,8 @@ $(document).on("click", ".clear-all", function() {
             'csrfmiddlewaretoken': getCSRFToken(),
         },
         dataType: 'json',
+        success: function() {
+            location.reload()
+        }
     });
 })
