@@ -1,0 +1,140 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block content %}
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'core:index' %}" rel="nofollow">
+                        <i class="fi-rs-home mr-5"></i>Home
+                    </a>
+                    <span></span> Shop
+                    <span></span> Checkout
+                </div>
+            </div>
+        </div>
+        <div class="container mb-30 mt-50">
+            <div class="row">
+                <div class="col-lg-8 mb-40">
+                    <h1 class="heading-2 mb-3 text-primary">Checkout</h1>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="text-body">There are 
+                            <span class="text-brand" style="color: #229799;">
+                                {{ totalcartitems }}
+                            </span> 
+                            products in your cart
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Billing and Shipping Information -->
+                <div class="col-lg-7">
+                    <form action="{% url 'core:checkout' %}" method="POST">
+                        {% csrf_token %}
+                        <!-- Billing Details -->
+                        <h2 class="heading-2 mb-4" style="color: #229799;">Billing Details</h2>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="first_name" class="form-label">First Name <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="first_name" placeholder="Enter your first name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="last_name" class="form-label">Last Name <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Enter your last name" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="address" class="form-label">Address <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="address" placeholder="Street address" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">City <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="city" placeholder="Enter your city" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="zip" class="form-label">Zip Code <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="zip" placeholder="Enter your zip code" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="country" class="form-label">Country <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="country" placeholder="Enter your country" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Phone <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="phone" placeholder="Enter your phone number" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+
+                        <!-- Shipping Details (optional) -->
+                        <h2 class="heading-2 mt-4 mb-3" style="color: #229799;">Shipping Details</h2>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="same_address" name="same_address" checked>
+                            <label class="form-check-label" for="same_address">Ship to the same address?</label>
+                        </div>
+
+                        <!-- Payment Options -->
+                        <h2 class="heading-2 mt-4 mb-3" style="color: #229799;">Payment Options</h2>
+                        <div class="mb-3">
+                            <label for="payment_method" class="form-label">Select Payment Method</label>
+                            <select class="form-select" name="payment_method" required>
+                                <option value="credit_card">Credit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+
+                        <!-- Place Order Button -->
+                        <button type="submit" class="btn btn-lg text-white w-100" style="background-color: #229799;">Place Order</button>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-5">
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h2 class="heading-2" style="color: #229799;">Your Order</h2>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for product_id, item in cart_data.items %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 2px solid #63a2c1">
+                                    <div class="shopping-cart-img ">
+                                        <a href="shop-product-right.html"
+                                        ><img
+                                        style="width: 50px; height: 75px"
+                                        alt="TrendMart"
+                                        src="{{ item.image }}"
+                                        /></a>
+                                    </div>
+                                    <div class="shopping-cart-title">
+                                        <h4>
+                                            <a href="{% url 'core:product-detail' item.pid %}"
+                                            >{{ item.title }}</a
+                                            >
+                                        </h4>
+                                        <h5 class="fs-5 fw-bolder">${{ item.price }}</h5>
+                                    </div>
+                                    <div class="shopping-cart-delete">
+                                        <button type="button" class="product-hide btn btn-sm h-50" data-product="{{ product_id }}">
+                                            <i class="fi-rs-trash"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="d-flex justify-content-between mt-3">
+                                <p class="m-0"><strong>Total:</strong></p>
+                                <p class="m-0"><strong style="color: #229799;">${{ cart_total_amount }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

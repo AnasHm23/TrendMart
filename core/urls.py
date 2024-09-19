@@ -29,5 +29,8 @@ urlpatterns = [
     # Wishlist
     path('add-to-wishlist/', views.wishlist_view, name="add-to-wishlist"),
     path('delete-from-wishlist/', views.delete_from_wishlist, name="delete-from-wishlist"),
+    
+    # checkout
+    path('checkout/', views.checkout_view, name="checkout"),
 ]
 

@@ -330,7 +330,7 @@ def delete_from_wishlist(request):
             context = {
                 'data': wishlist_data
             }
-        else:
+        else: 
             context = {
                 "data": wishlist_data,
             }
@@ -340,3 +340,6 @@ def delete_from_wishlist(request):
         }
 
     return JsonResponse(context)
+
+def checkout_view(request):
+    return render(request, 'core/checkout.html')
