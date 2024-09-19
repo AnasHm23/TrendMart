@@ -152,7 +152,7 @@
                                                                             </div>
                                                                             <div class="product-extra-link2">
                                                                                 <button type="button" data-index="{{ product.id }}" class="button button-add-to-cart" id="add-to-cart-btn" ><i class="fi-rs-shopping-cart"></i>Add to cart...</button>
-                                                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                                                <button style="backgound-color: white;border: 2px dotted white; border-radius: 35%; margin-left: 15px" type="button" data-index="{{ product.id }}" class="button button-wishlist" id="add-to-wishlist"><i class="fi-rs-heart"></i></button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -207,7 +207,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">
+                                            <span class="font-small">
                                                 By <a href="{% url 'core:vendor-products' product.vendor.vendor_id %}">{{ product.vendor.title }} </a>
                                             </span>
                                         </div>

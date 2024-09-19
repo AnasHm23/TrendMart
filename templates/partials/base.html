@@ -54,10 +54,9 @@
             <div class="col-xl-3 col-lg-4">
               <div class="header-info">
                 <ul>
-                  <li><a href="page-about.htlm">About Us</a></li>
-                  <li><a href="page-account.html">My Account</a></li>
-                  <li><a href="shop-wishlist.html">Wishlist</a></li>
-                  <li><a href="shop-order.html">Order Tracking</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Wishlist</a></li>
+                  <li><a href="#">Cart</a></li>
                 </ul>
               </div>
             </div>
@@ -78,37 +77,6 @@
                   <li>
                     Need help? Call Us:
                     <strong class="text-brand"> + 1800 900</strong>
-                  </li>
-                  <li>
-                    <a class="language-dropdown-active" href="#"
-                      >English <i class="fi-rs-angle-small-down"></i
-                    ></a>
-                    <ul class="language-dropdown">
-                      <li>
-                        <a href="#"
-                          ><img
-                            src="{% static 'assets/imgs/theme/flag-fr.png' %}"
-                            alt=""
-                          />Français</a
-                        >
-                      </li>
-                      <li>
-                        <a href="#"
-                          ><img
-                            src="{% static 'assets/imgs/theme/flag-dt.png' %}"
-                            alt=""
-                          />Deutsch</a
-                        >
-                      </li>
-                      <li>
-                        <a href="#"
-                          ><img
-                            src="{% static 'assets/imgs/theme/flag-ru.png' %}"
-                            alt=""
-                          />Pусский</a
-                        >
-                      </li>
-                    </ul>
                   </li>
                   <li>
                     <a class="language-dropdown-active" href="#"
@@ -184,43 +152,39 @@
                         alt="TrendMart"
                         src="{% static 'assets/imgs/theme/icons/icon-heart.svg' %}"
                       />
-                      <span class="pro-count blue">6</span>
+                      <span class="pro-count blue cart-items-count">{{ request.session.wishlist_data_obj|length }}</span>
                     </a>
-                    <a href="shop-wishlist.html"
-                      ><span class="lable">Wishlist</span></a
-                    >
+                    <a href="#" class="wishlist-link">
+                      <span class="lable">Wishlist</span>
+                      </a>
                     <div class="cart-dropdown-wrap cart-dropdown-hm2">
                       <ul>
-                        <li>
+                        {% for product_id, item in wishlist_data.items %}
+                        <li class="w-100 d-flex align-content-center p-1 m-0" style="border-bottom: 1px solid #63a2c1">
                           <div class="shopping-cart-img">
                             <a href="shop-product-right.html"
-                              ><img
-                                alt="TrendMart"
-                                src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}"
+                            ><img
+                            style="width: 50px; height: 75px"
+                            alt="TrendMart"
+                            src="{{ item.image }}"
                             /></a>
                           </div>
                           <div class="shopping-cart-title">
                             <h4>
-                              <a href="shop-product-right.html"
-                                >Daisy Casual Bag</a
+                              <a href="{% url 'core:product-detail' item.pid %}"
+                                >{{ item.title }}</a
                               >
                             </h4>
-                            <h4><span>1 × </span>$800.00</h4>
+                            <h5 class="fs-5 fw-bolder">${{ item.price }}</h5>
                           </div>
                           <div class="shopping-cart-delete">
-                            <a href="#"><i class="fi-rs-cross-small"></i></a>
+                            <button type="button" class="wishlist-product-delete btn btn-sm h-50" data-product="{{ product_id }}">
+                                <i class="fi-rs-trash"></i>
+                            </button>
                           </div>
                         </li>
+                        {% endfor %}
                       </ul>
-                      <div class="shopping-cart-footer">
-                        <div class="shopping-cart-total">
-                          <h4>Total <span>$4000.00</span></h4>
-                        </div>
-                        <div class="shopping-cart-button">
-                          <a href="shop-cart.html" class="outline">View cart</a>
-                          <a href="shop-checkout.html">Checkout</a>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div class="header-action-icon-2">

@@ -196,3 +196,62 @@ $(document).on("click", ".clear-all", function() {
         }
     });
 })
+
+// add to wishlist
+$(document).on("click", "#add-to-wishlist", function() {
+    let this_val = $(this);
+    let index = this_val.attr("data-index");
+
+    let product_title = $(".product-title-" + index).val();
+    let product_image = $(".product-image-" + index).val();
+    
+    let product_pid = $(".product-pid-" + index).val();
+    let product_id = $(".product-id-"+ index).val();
+    let product_price = $(".product-price-" + index).text();
+
+    console.log("product_id:", product_id)
+
+    $.ajax({
+        url: '/add-to-wishlist/',
+        method: 'POST',
+        data: {
+            'id': product_id,
+            'title': product_title,
+            'price': product_price,
+            'pid': product_pid,
+            'image': product_image,
+            'csrfmiddlewaretoken': getCSRFToken(),
+        },
+        beforeSend: function() {
+            console.log("Adding product to Wishlist...");
+        },
+        success: function() {
+            this_val.html("<i class='fi-rs-heart'></i>✓");
+            console.log("Added to Wishlist...");
+            location.reload()
+        }
+    })
+})
+
+// delete product from the wishlist
+$(document).on("click", ".wishlist-product-delete", function() {
+    let product_id = $(this).attr("data-product");
+
+    console.log(product_id);
+
+    $.ajax({
+        url: '/delete-from-wishlist/',
+        method: 'POST',
+        data: {
+            'id': product_id,
+            'csrfmiddlewaretoken': getCSRFToken(),
+        },
+        dataType: 'json',
+        beforeSend: function() {
+            console.log("the product is being deleted from the wishlist")
+        },
+        success: function(response) {
+            location.reload();
+        },
+    });
+});

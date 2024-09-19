@@ -204,6 +204,7 @@ def add_to_cart(request):
             cart_data = request.session['cart_data_obj']
             cart_data.update(cart_product)
             request.session['cart_data_obj'] = cart_data
+            request.session.modified = True
     else:
         request.session['cart_data_obj']= cart_product
     return JsonResponse({"data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
@@ -286,5 +287,56 @@ def clear_cart(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-def checkout_view(request):
-    pass
+def wishlist_view(request):
+    if request.method == 'POST':
+        wishlist_product = {}
+        id = str(request.POST.get('id'))
+        wishlist_product[id] = {
+            'title': request.POST.get('title'),
+            'price': request.POST.get('price'),
+            'image': request.POST.get('image'),
+            'pid': request.POST.get('pid'),
+        }
+
+        if 'wishlist_data_obj' in request.session:
+            if id in request.session['wishlist_data_obj']:
+                messages.warning(request, "The product is already in your Wishlist")
+            else:
+                wishlist_data = request.session['wishlist_data_obj']
+                wishlist_data.update(wishlist_product)
+                request.session['wishlist_data_obj'] = wishlist_data
+                request.session.modified = True
+        else:
+            request.session['wishlist_data_obj'] = wishlist_product
+            request.session.modified = True
+
+        return JsonResponse({
+            'data': request.session['wishlist_data_obj'],
+        })
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def delete_from_wishlist(request):
+    id = request.POST.get('id')
+
+    if 'wishlist_data_obj' in request.session:
+        wishlist_data = request.session['wishlist_data_obj']
+
+        if id in wishlist_data:
+            del wishlist_data[id]
+            request.session['wishlist_data_obj'] = wishlist_data
+            
+            request.session.modified = True
+            context = {
+                'data': wishlist_data
+            }
+        else:
+            context = {
+                "data": wishlist_data,
+            }
+    else:
+        context = {
+            "data": {},
+        }
+
+    return JsonResponse(context)

@@ -22,7 +22,7 @@ def cart_data(request):
         for product_id, item in cart_data_obj.items():
             try:
                 cart_total_amount += int(item['qty']) * float(item['price'])
-            except ValueError:
+            except (ValueError):
                 continue
         
         total_cart_items = len(cart_data_obj)
@@ -31,4 +31,14 @@ def cart_data(request):
         'cart_data': cart_data_obj,
         'totalcartitems': total_cart_items,
         'cart_total_amount': cart_total_amount,
+    }
+
+def wishlist_data(request):
+    wishlist_data_obj = {}
+    
+    if 'wishlist_data_obj' in request.session:
+        wishlist_data_obj = request.session['wishlist_data_obj']
+    
+    return {
+        'wishlist_data': wishlist_data_obj,
     }
