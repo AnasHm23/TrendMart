@@ -255,3 +255,12 @@ $(document).on("click", ".wishlist-product-delete", function() {
         },
     });
 });
+
+// hidding products from checkout
+$(document).on("click", ".product-hide", function() {
+    let product_id = $(this).attr("data-product");
+    let this_val = $(this);
+
+    console.log(product_id);
+    this_val.closest('<li>').hide();
+});
