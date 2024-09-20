@@ -112,8 +112,6 @@ def vendor_products_list(request, vid):
         messages.error(request, "vendor doesn't exist")
         return redirect("core:index")
     
-
-
 def search_view(request):
     query = request.POST.get("q")
     product = None
@@ -136,7 +134,6 @@ def search_view(request):
         'product_images': product_images,
     }
     return render(request, 'core/product-details.html', context)
-
 
 def filter_view(request):
     min_price = request.POST.get("min_price")
