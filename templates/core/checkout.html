@@ -31,7 +31,7 @@
             <div class="row">
                 <!-- Billing and Shipping Information -->
                 <div class="col-lg-7">
-                    <form action="{% url 'core:checkout' %}" method="POST">
+                    <form action="{% url 'core:place-order' %}" method="POST">
                         {% csrf_token %}
                         <!-- Billing Details -->
                         <h2 class="heading-2 mb-4" style="color: #229799;">Billing Details</h2>
@@ -104,9 +104,9 @@
                                 {% for product_id, item in cart_data.items %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center" style="border-bottom: 2px solid #63a2c1">
                                     <div class="shopping-cart-img ">
-                                        <a href="shop-product-right.html"
+                                        <a href="{% url 'core:product-detail' item.pid %}"
                                         ><img
-                                        style="width: 50px; height: 75px"
+                                        style="width: 150px; height: 75px"
                                         alt="TrendMart"
                                         src="{{ item.image }}"
                                         /></a>
@@ -118,11 +118,6 @@
                                             >
                                         </h4>
                                         <h5 class="fs-5 fw-bolder">${{ item.price }}</h5>
-                                    </div>
-                                    <div class="shopping-cart-delete">
-                                        <button type="button" class="product-hide btn btn-sm h-50" data-product="{{ product_id }}">
-                                            <i class="fi-rs-archive"></i>
-                                        </button>
                                     </div>
                                 </li>
                                 {% endfor %}

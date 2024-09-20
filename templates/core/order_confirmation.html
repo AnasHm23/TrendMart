@@ -1,0 +1,8 @@
+{% extends "partials/base.html" %}
+{% block content %}
+<div class="container text-center" style="margin: 100px auto 100px auto; width: 75%; border-radius: 25%; padding: 20px;">
+    <h1>Thank you for your order!</h1>
+    <p>Your order has been placed successfully. You will receive an email confirmation shortly.</p>
+    <a href="{% url 'core:index' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+</div>
+{% endblock %}

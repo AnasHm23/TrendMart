@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Product, ProductImages, Category, Vendor
+from .models import Product, ProductImages, Category, Vendor, Order, OrderItem
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
-
+from django.utils import timezone
 
 
 def index(request):
@@ -22,7 +22,7 @@ def index(request):
         product_paginated = paginator.page(1)
     except EmptyPage:
         product_paginated = paginator.page(paginator.num_pages)
-    
+     
     context = {
         'products': product_paginated,
         'top_selling': top_selling,
@@ -343,3 +343,70 @@ def delete_from_wishlist(request):
 
 def checkout_view(request):
     return render(request, 'core/checkout.html')
+
+
+def place_order(request):
+    if request.method == 'POST':
+        # Assuming that the cart data is stored in the session
+        cart_data = request.session.get('cart_data_obj', {})
+        if not cart_data:
+            messages.error(request, "Your cart is empty.")
+            return redirect('core:checkout')
+
+        # Process form data (like billing and shipping details)
+        billing_details = {
+            'first_name': request.POST.get('first_name'),
+            'last_name': request.POST.get('last_name'),
+            'address': request.POST.get('address'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip'),
+            'country': request.POST.get('country'),
+            'phone': request.POST.get('phone'),
+            'email': request.POST.get('email'),
+        }
+
+        # Check for missing billing details
+        if not all(billing_details.values()):
+            messages.error(request, "Please fill out all required fields.")
+            return redirect('core:checkout')
+
+        # Create an Order object
+        order = Order.objects.create(
+            user=request.user if request.user.is_authenticated else None,  # Add user if authenticated
+            order_date=timezone.now(),
+            total_amount=calculate_total_cart_amount(cart_data),
+            **billing_details  # Save billing details in the order model
+        )
+
+        # Create OrderItem objects for each item in the cart
+        for product_id, item in cart_data.items():
+            OrderItem.objects.create(
+                order=order,
+                product_id=product_id,
+                product_name=item['title'],
+                product_price=item['price'],
+                quantity=item['qty'],
+                product_image=item['image'],
+            )
+
+        # Clear the cart after the order is placed
+        del request.session['cart_data_obj']
+        request.session.modified = True
+
+        # Display success message
+        messages.success(request, "Your order has been placed successfully.")
+
+        # Redirect to order confirmation page or home page
+        return redirect('core:order-confirmation')
+
+    else:
+        return redirect('core:checkout')
+
+def calculate_total_cart_amount(cart_data):
+    total = 0
+    for item in cart_data.values():
+        total += int(item['qty']) * float(item['price'])
+    return total
+
+def order_confirmation(request):
+    return render(request, 'core/order_confirmation.html')

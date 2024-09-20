@@ -32,5 +32,9 @@ urlpatterns = [
     
     # checkout
     path('checkout/', views.checkout_view, name="checkout"),
+    path('place-order/', views.place_order, name='place-order'),
+    
+    # order confirmation
+    path('order-confirmation/', views.order_confirmation, name='order-confirmation'),
 ]
 
